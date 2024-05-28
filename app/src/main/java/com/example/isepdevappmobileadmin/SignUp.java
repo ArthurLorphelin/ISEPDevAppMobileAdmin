@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class SignUp extends AppCompatActivity {
 
     @Override
@@ -27,9 +29,9 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        Spinner spinnerAdminRoles = findViewById(R.id.admin_roles_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.admin_role, android.R.layout.simple_spinner_item);
+        Spinner spinner = (Spinner) findViewById(R.id.admin_roles_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.admin_role, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinnerAdminRoles.setAdapter(adapter);
+        spinner.setAdapter(adapter);
     }
 }
