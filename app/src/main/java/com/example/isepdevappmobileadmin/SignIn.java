@@ -22,6 +22,8 @@ public class SignIn extends AppCompatActivity {
         // We connect to the local Database
         databaseManager = new DatabaseManager(getApplicationContext());
 
+
+        /*
         // Once the user has clicked on the Sign In button
         Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -36,15 +38,17 @@ public class SignIn extends AppCompatActivity {
                 // We verify that the email and password correspond to each other
             }
         });
+        */
 
         // Once the user has clicked on the Sign Up button
-        Button signUpButton = findViewById(R.id.redirect_to_sign_up_page_button);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        Button redirectToSignUpButton = findViewById(R.id.redirect_to_sign_up_page_button);
+        redirectToSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // We create a second page on which the user can sign up in the app
-                Intent signUpActivity = new Intent(getApplicationContext(), SignUp.class);
-                startActivity(signUpActivity);
+                Intent signUpIntent = new Intent(getApplicationContext(), SignUp2.class);
+                startActivity(signUpIntent);
+                databaseManager = new DatabaseManager(getApplicationContext());
             }
         });
     }
