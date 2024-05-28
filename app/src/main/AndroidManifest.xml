@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activity.UserNotInDB"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserRegisteredInDatabase"
             android:exported="false" />
         <activity

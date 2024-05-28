@@ -12,6 +12,7 @@
     <string name="back_to_sign_up">Back to Sign Up</string>
     <string name="user_registered_in_database">User registered in Database</string>
     <string name="back_to_sign_in">Back to Sign In</string>
+    <string name="user_not_in_database">User not in Database</string>
     <string-array name="admin_role">
         <item>Module Manager</item>
         <item>Component Manager</item>

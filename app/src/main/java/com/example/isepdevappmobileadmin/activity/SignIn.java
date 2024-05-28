@@ -67,6 +67,9 @@ public class SignIn extends AppCompatActivity {
                 if (isUserInDatabase) {
                     Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
                     startActivity(componentManagerIntent);
+                } else {
+                    Intent userNotInDBIntent = new Intent(getApplicationContext(), UserNotInDB.class);
+                    startActivity(userNotInDBIntent);
                 }
 
                  /*
