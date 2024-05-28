@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".SignIn">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,15 +24,15 @@
         </TextView>
 
         <EditText
-            android:id="@+id/sign_in_username_edit_text"
+            android:id="@+id/sign_in_email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:textColor="@color/black"
             android:textColorHint="#D3D3D3"
             android:backgroundTint="@color/black"
             android:textSize="20sp"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:layout_marginTop="10dp">
         </EditText>
 
