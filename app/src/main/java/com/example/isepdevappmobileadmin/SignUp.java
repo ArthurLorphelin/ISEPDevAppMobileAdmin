@@ -52,12 +52,18 @@ public class SignUp extends AppCompatActivity {
                 Spinner adminRoleSpinner = (Spinner) findViewById(R.id.admin_roles_spinner);
                 adminRole = adminRoleSpinner.getSelectedItem().toString();
 
+                // We verify that all fields have data
                 if (!email.isEmpty() && !password.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !adminRole.isEmpty()) {
-                    // We store in the Database the new Admin
-                    databaseManager.insertNewAdmin(email, password, firstName, lastName);
+                    // We verify that the user is not in the system
+                    if (databaseManager.isUniqueAdmin(email)) {
+                        // We store in the Database the new Admin
+                        databaseManager.insertNewAdmin(email, password, firstName, lastName);
 
-                    Intent goBackToSignInPage = new Intent(getApplicationContext(), SignIn.class);
-                    startActivity(goBackToSignInPage);
+                        Intent goBackToSignInPage = new Intent(getApplicationContext(), SignIn.class);
+                        startActivity(goBackToSignInPage);
+                    } else {
+                        // We need to indicate that the user is already in the system
+                    }
                 } else {
                     // We need to make a pop-up appear to tell the user to insert data into all fields
                 }

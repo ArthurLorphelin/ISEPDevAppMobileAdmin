@@ -1,6 +1,7 @@
 package com.example.isepdevappmobileadmin;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -36,5 +37,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "(email, password, firstName, lastName) " +
                 "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', ')";
         this.getWritableDatabase().execSQL(insertNewItemSql);
+    }
+
+    public boolean isUniqueAdmin(String email) {
+        String sql = "select id from Admin WHERE email = '" + email + "'";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        return !cursor.moveToFirst();
     }
 }
