@@ -84,5 +84,15 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+
+        // We create the action when a user clicks on the Back to Sign In Page button
+        Button backToSignInPageButton = findViewById(R.id.return_to_sign_in_page_from_sign_up_page);
+        backToSignInPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backToSignInPageIntent = new Intent(getApplicationContext(), SignIn.class);
+                startActivity(backToSignInPageIntent);
+            }
+        });
     }
 }

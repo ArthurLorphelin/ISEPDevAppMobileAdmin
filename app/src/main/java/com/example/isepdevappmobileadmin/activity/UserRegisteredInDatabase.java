@@ -18,7 +18,7 @@ public class UserRegisteredInDatabase extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_registered_in_database);
 
-        Button backToSignInPageButton = findViewById(R.id.back_to_sign_in_page_button);
+        Button backToSignInPageButton = findViewById(R.id.back_to_sign_in_page_button_with_user_registered_in_db);
         backToSignInPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

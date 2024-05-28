@@ -18,7 +18,7 @@
     </TextView>
 
     <Button
-        android:id="@+id/back_to_sign_in_page_button"
+        android:id="@+id/back_to_sign_in_page_button_with_user_registered_in_db"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:background="@drawable/round_corners_button"

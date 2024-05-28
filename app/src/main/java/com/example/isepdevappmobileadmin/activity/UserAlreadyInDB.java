@@ -18,7 +18,7 @@ public class UserAlreadyInDB extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_already_in_db);
 
-        Button backToSignUpPageButton = findViewById(R.id.back_to_sign_up_page_button);
+        Button backToSignUpPageButton = findViewById(R.id.back_to_sign_up_page_button_because_user_already_in_db);
         backToSignUpPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
