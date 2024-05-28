@@ -25,11 +25,9 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        /*
         Spinner spinnerAdminRoles = findViewById(R.id.admin_roles_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.admin_role, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinnerAdminRoles.setAdapter(adapter);
-         */
     }
 }

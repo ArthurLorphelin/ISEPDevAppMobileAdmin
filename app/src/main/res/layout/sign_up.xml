@@ -82,9 +82,10 @@
     </TextView>
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/admin_roles_spinner"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/sign_up_button"
