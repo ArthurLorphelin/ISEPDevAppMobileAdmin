@@ -31,6 +31,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "firstName text not null," +
                 "lastName text not null)";
         db.execSQL(creationAdminTableSql);
+
+        // We create the Tutor Admin Table with an id, an adminId, a groupId and a componentId
+        String creationTutorTable = "create table Tutor (" +
+                "id integer primary key autoincrement," +
+                "adminId int not null," +
+                "groupId int," +
+                "componentId int)";
+        db.execSQL(creationTutorTable);
+
+        // We create the Component Manager Table with an id and an adminId
+        String creationComponentManagerTable = "create table ComponentManager (" +
+                "id integer primary key autoincrement," +
+                "adminId int)";
+        db.execSQL(creationComponentManagerTable);
+
+        // We create the Module Manager Table with an id and an adminId
+        String creationModuleManagerTable = "create table ModuleManager (" +
+                "id integer primary key autoincrement," +
+                "adminId int)";
+        db.execSQL(creationModuleManagerTable);
     }
 
     @Override
@@ -73,6 +93,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         // We return the array list of admins
         return admins;
+    }
+
+    public int insertAdminRole(String adminRoleTable, int adminId) {
+        // We insert the Admin into the corresponded Table
+        String insertNewAdminRole = "INSERT INTO " + adminRoleTable +
+                " (adminId) VALUES (" + adminId + ")";
+        this.getWritableDatabase().execSQL(insertNewAdminRole);
+
+        // We get and return the id of the Admin Role Table
+        String getNewAdminRoleId = "SELECT id FROM " + adminRoleTable +
+                "WHERE adminId=" + adminId;
+        Cursor cursor = this.getWritableDatabase().rawQuery(getNewAdminRoleId, null);
+        return cursor.getInt(cursor.getColumnIndex("id"));
     }
 
 }

@@ -56,6 +56,7 @@ public class SignUp extends AppCompatActivity {
                 lastName = lastNameEditText.getText().toString();
                 Spinner adminRoleSpinner = (Spinner) findViewById(R.id.admin_roles_spinner);
                 adminRole = adminRoleSpinner.getSelectedItem().toString();
+                SignIn.ADMIN_ROLE = adminRole;
 
                 // We get the list of all Admins in the Database
                 databaseManager = new DatabaseManager(getApplicationContext());
@@ -74,6 +75,27 @@ public class SignUp extends AppCompatActivity {
                 if (!isUserInDatabase) {
                     // We store in the Database the new Admin
                     databaseManager.insertNewAdmin(email, password, firstName, lastName);
+
+                    // We get the list of all Admins in the database and get the last created Admin
+                    allAdminsInDB = databaseManager.getAllAdmins();
+                    Admin currentAdmin = new Admin();
+                    for (int i = 0; i < allAdminsInDB.size(); i++) {
+                        Admin admin = allAdminsInDB.get(i);
+                        if (Objects.equals(admin.getEmail(), email)) {
+                            currentAdmin = admin;
+                        }
+                    }
+
+                    // Depending on the value of the Admin role of the user, we create an instance in different Tables in the Database
+                    String adminRoleTable = null;
+                    if (Objects.equals(adminRole, "Module Manager")) {
+                        adminRoleTable = "ModuleManager";
+                    } else if (Objects.equals(adminRole, "Tutor")) {
+                        adminRoleTable = "Tutor";
+                    } else if (Objects.equals(adminRole, "Component Manager")) {
+                        adminRoleTable = "ComponentManager";
+                    }
+                    SignIn.ROLE_ID = databaseManager.insertAdminRole(adminRoleTable, currentAdmin.getId());
 
                     // We show the user that he has been registered in the DB
                     Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);
