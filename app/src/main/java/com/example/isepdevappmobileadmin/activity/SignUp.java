@@ -61,29 +61,26 @@ public class SignUp extends AppCompatActivity {
                 databaseManager = new DatabaseManager(getApplicationContext());
                 ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
 
-                // We verify that all fields have data
-                if (!email.isEmpty() && !password.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !adminRole.isEmpty()) {
-                    // We create a Boolean variable to know if the user is already in the Admin Table
-                    boolean isUserInDatabase = false;
-                    if (!allAdminsInDB.isEmpty()) {
-                        for (int i = 0; i < allAdminsInDB.size(); i++) {
-                            Admin admin = allAdminsInDB.get(i);
-                            if (Objects.equals(admin.getEmail(), email)) {
-                                isUserInDatabase = true;
-                            }
+                // We create a Boolean variable to know if the user is already in the Admin Table
+                boolean isUserInDatabase = false;
+                if (!allAdminsInDB.isEmpty()) {
+                    for (int i = 0; i < allAdminsInDB.size(); i++) {
+                        Admin admin = allAdminsInDB.get(i);
+                        if (Objects.equals(admin.getEmail(), email)) {
+                            isUserInDatabase = true;
                         }
                     }
-                    if (!isUserInDatabase) {
-                        // We store in the Database the new Admin
-                        databaseManager.insertNewAdmin(email, password, firstName, lastName);
+                }
+                if (!isUserInDatabase) {
+                    // We store in the Database the new Admin
+                    databaseManager.insertNewAdmin(email, password, firstName, lastName);
 
-                        // We show the user that he has been registered in the DB
-                        Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);
-                        startActivity(userRegisteredInDB);
-                    } else {
-                        Intent userAlreadyInDBIntent = new Intent(getApplicationContext(), UserAlreadyInDB.class);
-                        startActivity(userAlreadyInDBIntent);
-                    }
+                    // We show the user that he has been registered in the DB
+                    Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);
+                    startActivity(userRegisteredInDB);
+                } else {
+                    Intent userAlreadyInDBIntent = new Intent(getApplicationContext(), UserAlreadyInDB.class);
+                    startActivity(userAlreadyInDBIntent);
                 }
             }
         });

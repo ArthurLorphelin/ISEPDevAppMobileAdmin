@@ -40,7 +40,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertNewAdmin(String email, String password, String firstName, String lastName) {
         String insertNewItemSql = "INSERT INTO Admin " +
                 "(email, password, firstName, lastName) " +
-                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', ')";
+                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "')";
         this.getWritableDatabase().execSQL(insertNewItemSql);
     }
 
