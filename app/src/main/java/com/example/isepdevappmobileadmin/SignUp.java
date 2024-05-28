@@ -8,13 +8,13 @@ import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SignUp2 extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.sign_up2);
+        setContentView(R.layout.sign_up);
 
         Button signUpButton = findViewById(R.id.sign_up_button);
         signUpButton.setOnClickListener(new View.OnClickListener() {
