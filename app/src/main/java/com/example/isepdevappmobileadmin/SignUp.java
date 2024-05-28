@@ -55,7 +55,7 @@ public class SignUp extends AppCompatActivity {
                 // We verify that all fields have data
                 if (!email.isEmpty() && !password.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !adminRole.isEmpty()) {
                     // We verify that the user is not in the system
-                    if (databaseManager.isUniqueAdmin(email)) {
+                    if (databaseManager.isAdmin(email)) {
                         // We store in the Database the new Admin
                         databaseManager.insertNewAdmin(email, password, firstName, lastName);
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,6 @@ public class SignIn extends AppCompatActivity {
         // We connect to the local Database
         databaseManager = new DatabaseManager(getApplicationContext());
 
-
-        /*
         // Once the user has clicked on the Sign In button
         Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -34,10 +33,19 @@ public class SignIn extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                // We verify that the email and password correspond to each other
+                // We verify that the email is in the Database
+                if (databaseManager.isAdmin(email)) {
+                    // We verify that the email and password are linked together
+                    if (password == databaseManager.getPasswordFromAdmin(email)) {
+                        Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
+                        startActivity(componentManagerIntent);
+                    }
+                } else {
+                    // We need to indicate that the user is not in the system
+                }
             }
         });
-        */
+
 
         // Once the user has clicked on the Sign Up button
         Button redirectToSignUpButton = findViewById(R.id.redirect_to_sign_up_page_button);
@@ -47,7 +55,6 @@ public class SignIn extends AppCompatActivity {
                 // We create a second page on which the user can sign up in the app
                 Intent signUpIntent = new Intent(getApplicationContext(), SignUp.class);
                 startActivity(signUpIntent);
-                databaseManager = new DatabaseManager(getApplicationContext());
             }
         });
     }

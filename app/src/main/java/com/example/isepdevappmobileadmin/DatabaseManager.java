@@ -39,9 +39,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(insertNewItemSql);
     }
 
-    public boolean isUniqueAdmin(String email) {
+    public boolean isAdmin(String email) {
         String sql = "select id from Admin WHERE email = '" + email + "'";
         Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
         return !cursor.moveToFirst();
+    }
+
+    public String getPasswordFromAdmin(String email) {
+        String sql = "select password from Admin WHERE email = '" + email + "'";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        return cursor.getString(cursor.getColumnIndex("password"));
     }
 }
