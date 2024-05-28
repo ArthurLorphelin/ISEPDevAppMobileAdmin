@@ -30,4 +30,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
+
+    public void insertNewAdmin(String email, String password, String firstName, String lastName) {
+        String insertNewItemSql = "INSERT INTO Admin " +
+                "(email, password, firstName, lastName) " +
+                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', ')";
+        this.getWritableDatabase().execSQL(insertNewItemSql);
+    }
 }
