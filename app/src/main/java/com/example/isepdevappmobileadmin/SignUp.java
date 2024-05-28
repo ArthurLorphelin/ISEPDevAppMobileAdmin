@@ -31,7 +31,7 @@ public class SignUp extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.admin_roles_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.admin_role, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 }
