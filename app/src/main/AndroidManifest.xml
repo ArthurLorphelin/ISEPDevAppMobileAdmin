@@ -13,13 +13,19 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
-            android:name=".ComponentManager"
+            android:name=".activity.UserRegisteredInDatabase"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".activity.UserAlreadyInDB"
             android:exported="false" />
         <activity
-            android:name=".SignIn"
+            android:name=".activity.ComponentManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

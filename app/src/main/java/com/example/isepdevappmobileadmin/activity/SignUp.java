@@ -1,4 +1,4 @@
-package com.example.isepdevappmobileadmin;
+package com.example.isepdevappmobileadmin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,12 @@ import android.widget.Spinner;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DatabaseManager;
+import com.example.isepdevappmobileadmin.R;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
     // We create variables to store the value entered by the user in the different EditText into the Database
@@ -52,20 +57,33 @@ public class SignUp extends AppCompatActivity {
                 Spinner adminRoleSpinner = (Spinner) findViewById(R.id.admin_roles_spinner);
                 adminRole = adminRoleSpinner.getSelectedItem().toString();
 
+                // We get the list of all Admins in the Database
+                databaseManager = new DatabaseManager(getApplicationContext());
+                ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
+
                 // We verify that all fields have data
                 if (!email.isEmpty() && !password.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !adminRole.isEmpty()) {
-                    // We verify that the user is not in the system
-                    if (databaseManager.isAdmin(email)) {
+                    // We create a Boolean variable to know if the user is already in the Admin Table
+                    boolean isUserInDatabase = false;
+                    if (!allAdminsInDB.isEmpty()) {
+                        for (int i = 0; i < allAdminsInDB.size(); i++) {
+                            Admin admin = allAdminsInDB.get(i);
+                            if (Objects.equals(admin.getEmail(), email)) {
+                                isUserInDatabase = true;
+                            }
+                        }
+                    }
+                    if (!isUserInDatabase) {
                         // We store in the Database the new Admin
                         databaseManager.insertNewAdmin(email, password, firstName, lastName);
 
-                        Intent goBackToSignInPage = new Intent(getApplicationContext(), SignIn.class);
-                        startActivity(goBackToSignInPage);
+                        // We show the user that he has been registered in the DB
+                        Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);
+                        startActivity(userRegisteredInDB);
                     } else {
-                        // We need to indicate that the user is already in the system
+                        Intent userAlreadyInDBIntent = new Intent(getApplicationContext(), UserAlreadyInDB.class);
+                        startActivity(userAlreadyInDBIntent);
                     }
-                } else {
-                    // We need to make a pop-up appear to tell the user to insert data into all fields
                 }
             }
         });

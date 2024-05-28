@@ -1,9 +1,10 @@
-package com.example.isepdevappmobileadmin;
+package com.example.isepdevappmobileadmin.activity;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.isepdevappmobileadmin.R;
 
 public class ComponentManager extends AppCompatActivity {
 

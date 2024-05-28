@@ -1,9 +1,14 @@
-package com.example.isepdevappmobileadmin;
+package com.example.isepdevappmobileadmin.classes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+
+import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
@@ -39,15 +44,35 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(insertNewItemSql);
     }
 
-    public boolean isAdmin(String email) {
-        String sql = "select id from Admin WHERE email = '" + email + "'";
+    // Function that returns all Admin in Database
+    public ArrayList<Admin> getAllAdmins() {
+        // We instantiate the array variable in which all Admins will be stored
+        ArrayList<Admin> admins = new ArrayList<>();
+        String sql = "select * from Admin";
         Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
-        return !cursor.moveToFirst();
+
+        // We run the SQL String and store each admin into the array list
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String email = cursor.getString(cursor.getColumnIndex("email"));
+                String password = cursor.getString(cursor.getColumnIndex("password"));
+                String firstName = cursor.getString(cursor.getColumnIndex("firstName"));
+                String lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+
+                Admin admin = new Admin();
+                admin.setId(id);
+                admin.setEmail(email);
+                admin.setPassword(password);
+                admin.setFirstName(firstName);
+                admin.setLastName(lastName);
+
+                admins.add(admin);
+                cursor.moveToNext();
+            }
+        }
+        // We return the array list of admins
+        return admins;
     }
 
-    public String getPasswordFromAdmin(String email) {
-        String sql = "select password from Admin WHERE email = '" + email + "'";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
-        return cursor.getString(cursor.getColumnIndex("password"));
-    }
 }

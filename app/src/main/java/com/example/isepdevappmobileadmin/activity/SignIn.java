@@ -1,4 +1,4 @@
-package com.example.isepdevappmobileadmin;
+package com.example.isepdevappmobileadmin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,13 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DatabaseManager;
+import com.example.isepdevappmobileadmin.R;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class SignIn extends AppCompatActivity {
     // We instantiate the variable to access the local Database
@@ -33,16 +40,39 @@ public class SignIn extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
+                /*
                 // We verify that the email is in the Database
                 if (databaseManager.isAdmin(email)) {
                     // We verify that the email and password are linked together
-                    if (password == databaseManager.getPasswordFromAdmin(email)) {
+                    if (password.equals(databaseManager.getPasswordFromAdmin(email))) {
                         Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
                         startActivity(componentManagerIntent);
                     }
                 } else {
                     // We need to indicate that the user is not in the system
                 }
+                 */
+
+                // We get the list of all Admins in Database and verify that the user is in the list
+                ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
+                boolean isUserInDatabase = false;
+                for (int i = 0; i < allAdminsInDB.size(); i++) {
+                    Admin admin = allAdminsInDB.get(i);
+                    if (Objects.equals(admin.getEmail(), email)) {
+                        isUserInDatabase = true;
+                    }
+                }
+
+                // If the user is in the list, we advance to the next stage
+                if (isUserInDatabase) {
+                    Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
+                    startActivity(componentManagerIntent);
+                }
+
+                 /*
+                Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
+                startActivity(componentManagerIntent);
+                */
             }
         });
 
