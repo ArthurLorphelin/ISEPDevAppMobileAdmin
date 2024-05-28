@@ -1,5 +1,6 @@
 package com.example.isepdevappmobileadmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,17 @@ public class SignIn extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 // We verify that the email and password correspond to each other
+            }
+        });
+
+        // Once the user has clicked on the Sign Up button
+        Button signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // We create a second page on which the user can sign up in the app
+                Intent signUpActivity = new Intent(getApplicationContext(), SignUp.class);
+                startActivity(signUpActivity);
             }
         });
     }
