@@ -38,7 +38,7 @@ public class SignIn extends AppCompatActivity {
         });
 
         // Once the user has clicked on the Sign Up button
-        Button signUpButton = findViewById(R.id.sign_up_button);
+        Button signUpButton = findViewById(R.id.redirect_to_sign_up_page_button);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
