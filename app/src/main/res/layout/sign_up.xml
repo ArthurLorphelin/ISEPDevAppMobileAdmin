@@ -81,7 +81,7 @@
     </TextView>
 
     <Spinner
-        android:id="@+id/Admin_role_spinner"
+        android:id="@+id/admin_roles_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
