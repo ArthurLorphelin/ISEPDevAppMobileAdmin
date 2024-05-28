@@ -40,45 +40,36 @@ public class SignIn extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                /*
-                // We verify that the email is in the Database
-                if (databaseManager.isAdmin(email)) {
-                    // We verify that the email and password are linked together
-                    if (password.equals(databaseManager.getPasswordFromAdmin(email))) {
-                        Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
-                        startActivity(componentManagerIntent);
-                    }
-                } else {
-                    // We need to indicate that the user is not in the system
-                }
-                 */
-
                 // We get the list of all Admins in Database and verify that the user is in the list
                 ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
                 boolean isUserInDatabase = false;
+                int currentAdminIndex = 0;
                 for (int i = 0; i < allAdminsInDB.size(); i++) {
                     Admin admin = allAdminsInDB.get(i);
                     if (Objects.equals(admin.getEmail(), email)) {
                         isUserInDatabase = true;
+                        currentAdminIndex = i;
                     }
                 }
 
                 // If the user is in the list, we advance to the next stage
                 if (isUserInDatabase) {
-                    Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
-                    startActivity(componentManagerIntent);
+                    Admin currentAdmin = allAdminsInDB.get(currentAdminIndex);
+
+                    // We verify that the password is the correct one for this admin
+                    if (Objects.equals(currentAdmin.getPassword(), password)) {
+                        Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
+                        startActivity(componentManagerIntent);
+                    } else {
+                        Intent incorrectPasswordIntent = new Intent(getApplicationContext(), IncorrectPassword.class);
+                        startActivity(incorrectPasswordIntent);
+                    }
                 } else {
                     Intent userNotInDBIntent = new Intent(getApplicationContext(), UserNotInDB.class);
                     startActivity(userNotInDBIntent);
                 }
-
-                 /*
-                Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManager.class);
-                startActivity(componentManagerIntent);
-                */
             }
         });
-
 
         // Once the user has clicked on the Sign Up button
         Button redirectToSignUpButton = findViewById(R.id.redirect_to_sign_up_page_button);
