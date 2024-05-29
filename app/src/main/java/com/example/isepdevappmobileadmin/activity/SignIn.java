@@ -10,7 +10,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import com.example.isepdevappmobileadmin.R;
 
@@ -66,6 +68,16 @@ public class SignIn extends AppCompatActivity {
                     // We verify that the password is the correct one for this admin
                     if (Objects.equals(currentAdmin.getPassword(), password)) {
 
+                        // We get from the Database all Tutors, Component managers and Module managers
+                        ArrayList<Tutor> allTutorsInDB = databaseManager.getAllTutors();
+                        ArrayList<ComponentManager> allComponentManagersInDB = databaseManager.getAllComponentManagers();
+                        ArrayList<ModuleManager> allModuleManagersInDB = databaseManager.getAllModuleManagers();
+
+                        // We search in Tutors if
+                        for (int i = 0; i <allTutorsInDB.size(); i++) {
+
+                        }
+
                         // We differentiate the cases depending on the Admin role : Component Manager, Tutor or Module Manager
                         if (Objects.equals(ADMIN_ROLE, "Component Manager")) {
                             Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManagerActivity.class);
@@ -73,7 +85,7 @@ public class SignIn extends AppCompatActivity {
                         } else if (Objects.equals(ADMIN_ROLE, "Module Manager")) {
                             Intent moduleManagerIntent = new Intent(getApplicationContext(), ModuleManagerActivity.class);
                             startActivity(moduleManagerIntent);
-                        } else if (ADMIN_ROLE == "Tutor") {
+                        } else if (Objects.equals(ADMIN_ROLE, "Tutor")) {
                             Intent tutorIntent = new Intent(getApplicationContext(), TutorActivity.class);
                             startActivity(tutorIntent);
                         }

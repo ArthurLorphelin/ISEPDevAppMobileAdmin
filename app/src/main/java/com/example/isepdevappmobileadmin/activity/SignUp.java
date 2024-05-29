@@ -3,15 +3,18 @@ package com.example.isepdevappmobileadmin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import com.example.isepdevappmobileadmin.R;
 
@@ -24,7 +27,8 @@ public class SignUp extends AppCompatActivity {
     private String password;
     private String firstName;
     private String lastName;
-    private String adminRole;
+    private int adminRoleId;
+    private String adminRoleName;
     private DatabaseManager databaseManager;
 
 
@@ -39,6 +43,17 @@ public class SignUp extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.admin_role, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                adminRoleName = (String) parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), adminRoleName, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // We now create the Activity related to the user pressing the Sign Up button
         Button signUpButton = findViewById(R.id.sign_up_button);
@@ -54,13 +69,19 @@ public class SignUp extends AppCompatActivity {
                 firstName = firstNameEditText.getText().toString();
                 EditText lastNameEditText = findViewById(R.id.sign_up_last_name_edit_text);
                 lastName = lastNameEditText.getText().toString();
-                Spinner adminRoleSpinner = (Spinner) findViewById(R.id.admin_roles_spinner);
-                adminRole = adminRoleSpinner.getSelectedItem().toString();
-                SignIn.ADMIN_ROLE = adminRole;
 
                 // We get the list of all Admins in the Database
                 databaseManager = new DatabaseManager(getApplicationContext());
                 ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
+
+                // We get the list of all AdminRoles in the Database and get the id of the corresponding role
+                ArrayList<AdminRole> allAdminRolesInDB = databaseManager.getAllAdminRoles();
+                for (int i = 0; i < allAdminRolesInDB.size(); i++) {
+                    AdminRole adminRoleItem = allAdminRolesInDB.get(i);
+                    if (Objects.equals(adminRoleItem.getName(), adminRoleName)) {
+                        adminRoleId = adminRoleItem.getId();
+                    }
+                }
 
                 // We create a Boolean variable to know if the user is already in the Admin Table
                 boolean isUserInDatabase = false;
@@ -74,9 +95,9 @@ public class SignUp extends AppCompatActivity {
                 }
                 if (!isUserInDatabase) {
                     // We store in the Database the new Admin
-                    databaseManager.insertNewAdmin(email, password, firstName, lastName);
+                    databaseManager.insertNewAdmin(email, password, firstName, lastName, adminRoleId);
 
-                    // We get the list of all Admins in the database and get the last created Admin
+                    // We get the list of all Admins in the database and get the one just created
                     allAdminsInDB = databaseManager.getAllAdmins();
                     Admin currentAdmin = new Admin();
                     for (int i = 0; i < allAdminsInDB.size(); i++) {
@@ -86,16 +107,14 @@ public class SignUp extends AppCompatActivity {
                         }
                     }
 
-                    // Depending on the value of the Admin role of the user, we create an instance in different Tables in the Database
-                    String adminRoleTable = null;
-                    if (Objects.equals(adminRole, "Module Manager")) {
-                        adminRoleTable = "ModuleManager";
-                    } else if (Objects.equals(adminRole, "Tutor")) {
-                        adminRoleTable = "Tutor";
-                    } else if (Objects.equals(adminRole, "Component Manager")) {
-                        adminRoleTable = "ComponentManager";
+                    // Depending on the name of the Admin role of the user, we create an instance in different Tables in the Database
+                    if (Objects.equals(adminRoleName, "Module Manager")) {
+                        databaseManager.insertModuleManager(currentAdmin.getId());
+                    } else if (Objects.equals(adminRoleName, "Tutor")) {
+                        databaseManager.insertTutor(currentAdmin.getId());
+                    } else if (Objects.equals(adminRoleName, "Component Manager")) {
+                        databaseManager.insertComponentManager(currentAdmin.getId());
                     }
-                    SignIn.ROLE_ID = databaseManager.insertAdminRole(adminRoleTable, currentAdmin.getId());
 
                     // We show the user that he has been registered in the DB
                     Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);

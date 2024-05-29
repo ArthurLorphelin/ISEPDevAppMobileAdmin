@@ -13,6 +13,8 @@ public class Admin implements Parcelable {
     private String firstName;
     private String lastName;
 
+    private int adminRoleId;
+
     // Getters and setters for all variables
     public int getId() {
         return id;
@@ -52,6 +54,14 @@ public class Admin implements Parcelable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getAdminRoleId() {
+        return adminRoleId;
+    }
+
+    public void setAdminRoleId(int adminRoleId) {
+        this.adminRoleId = adminRoleId;
     }
 
     public Admin(Parcel in) {

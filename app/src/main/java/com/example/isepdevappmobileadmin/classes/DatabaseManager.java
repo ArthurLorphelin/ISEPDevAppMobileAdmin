@@ -7,8 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
+import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
@@ -29,8 +34,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "email text not null," +
                 "password text not null," +
                 "firstName text not null," +
-                "lastName text not null)";
+                "lastName text not null," +
+                "adminRoleId int not null)";
         db.execSQL(creationAdminTableSql);
+
+        // We create the AdminRole Table withe an id and a name
+        String creationAdminRoleTableSql = "create table AdminRole(" +
+                "id integer primary key autoincrement," +
+                "name text not null)";
+        db.execSQL(creationAdminRoleTableSql);
+
+        // We insert in the Database the Admin Roles
+        String insertTutorRoleSql = "INSERT INTO AdminRole (name) VALUES ('Tutor')";
+        String insertComponentManagerRoleSql = "INSERT INTO AdminRole (name) VALUES ('Component Manager')";
+        String insertModuleManagerRoleInSql = "INSERT INTO AdminRole (name) VALUES ('Module Manager')";
+        db.execSQL(insertTutorRoleSql);
+        db.execSQL(insertComponentManagerRoleSql);
+        db.execSQL(insertModuleManagerRoleInSql);
 
         // We create the Tutor Admin Table with an id, an adminId, a groupId and a componentId
         String creationTutorTable = "create table Tutor (" +
@@ -57,10 +77,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public void insertNewAdmin(String email, String password, String firstName, String lastName) {
+    public void insertNewAdmin(String email, String password, String firstName, String lastName, int adminRoleId) {
         String insertNewItemSql = "INSERT INTO Admin " +
-                "(email, password, firstName, lastName) " +
-                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "')";
+                "(email, password, firstName, lastName, adminRoleId) " +
+                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', "+ adminRoleId + ")";
         this.getWritableDatabase().execSQL(insertNewItemSql);
     }
 
@@ -95,17 +115,107 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return admins;
     }
 
-    public int insertAdminRole(String adminRoleTable, int adminId) {
-        // We insert the Admin into the corresponded Table
-        String insertNewAdminRole = "INSERT INTO " + adminRoleTable +
-                " (adminId) VALUES (" + adminId + ")";
-        this.getWritableDatabase().execSQL(insertNewAdminRole);
+    public ArrayList<AdminRole> getAllAdminRoles() {
+        ArrayList<AdminRole> adminRoles = new ArrayList<>();
+        String sql = "select * from AdminRole";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
 
-        // We get and return the id of the Admin Role Table
-        String getNewAdminRoleId = "SELECT id FROM " + adminRoleTable +
-                "WHERE adminId=" + adminId;
-        Cursor cursor = this.getWritableDatabase().rawQuery(getNewAdminRoleId, null);
-        return cursor.getInt(cursor.getColumnIndex("id"));
+        // We run the SQL String and store each admin into the array list
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+
+                AdminRole adminRole = new AdminRole();
+                adminRole.setId(id);
+                adminRole.setName(name);
+
+                adminRoles.add(adminRole);
+                cursor.moveToNext();
+            }
+        }
+        return adminRoles;
+    }
+
+    public ArrayList<Tutor> getAllTutors() {
+        ArrayList<Tutor> tutors = new ArrayList<>();
+        String sql = "select * from Tutor";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+                int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
+                int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+
+                Tutor tutor = new Tutor();
+                tutor.setId(id);
+                tutor.setAdminId(adminId);
+                tutor.setGroupId(groupId);
+                tutor.setComponentId(componentId);
+
+                tutors.add(tutor);
+                cursor.moveToNext();
+            }
+        }
+        return tutors;
+    }
+
+    public ArrayList<ComponentManager> getAllComponentManagers() {
+        ArrayList<ComponentManager> componentManagers = new ArrayList<>();
+        String sql = "select* from ComponentManager";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+
+                ComponentManager componentManager = new ComponentManager();
+                componentManager.setId(id);
+                componentManager.setAdminId(adminId);
+
+                componentManagers.add(componentManager);
+                cursor.moveToNext();
+            }
+        }
+        return componentManagers;
+    }
+
+    public ArrayList<ModuleManager> getAllModuleManagers() {
+        ArrayList<ModuleManager> moduleManagers = new ArrayList<>();
+        String sql = "select * from ModuleManager";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+
+                ModuleManager moduleManager = new ModuleManager();
+                moduleManager.setId(id);
+                moduleManager.setAdminId(adminId);
+
+                moduleManagers.add(moduleManager);
+                cursor.moveToNext();
+            }
+        }
+        return moduleManagers;
+    }
+    public void insertTutor(int adminId) {
+        String insertNewTutorSql = "INSERT INTO Tutor " +
+                "(adminId) VALUES (" + adminId + ")";
+        this.getWritableDatabase().execSQL(insertNewTutorSql);
+    }
+
+    public void insertModuleManager(int adminId) {
+        String insertNewModuleManagerSql = "INSERT INTO ModuleManager " +
+                "(adminId) VALUES (" + adminId + ")";
+        this.getWritableDatabase().execSQL(insertNewModuleManagerSql);
+    }
+
+    public void insertComponentManager(int adminId) {
+        String insertNewComponentManagerSql = "INSERT INTO ComponentManager " +
+                "(adminId) VALUES (" + adminId + ")";
+        this.getWritableDatabase().execSQL(insertNewComponentManagerSql);
     }
 
 }
