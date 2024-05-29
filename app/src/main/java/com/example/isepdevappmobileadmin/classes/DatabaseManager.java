@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
 import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin6.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin7.db";
     private static final int DATABASE_VERSION = 1;
 
     // We create the constructor function of the class
@@ -240,6 +241,30 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String insertNewComponentManagerSql = "INSERT INTO ComponentManager " +
                 "(adminId) VALUES (" + adminId + ")";
         this.getWritableDatabase().execSQL(insertNewComponentManagerSql);
+    }
+
+    public ArrayList<Group> getAllGroups() {
+        ArrayList<Group> groups = new ArrayList<>();
+        String sql = "select * from Groupe";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while ((!cursor.isAfterLast())) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int schoolYearId = cursor.getInt(cursor.getColumnIndex("schoolYearId"));
+                @SuppressLint("Range") int clientId = cursor.getInt(cursor.getColumnIndex("clientId"));
+
+                Group group = new Group();
+                group.setId(id);
+                group.setName(name);
+                group.setSchoolYearId(schoolYearId);
+                group.setClientId(clientId);
+
+                groups.add(group);
+                cursor.moveToNext();
+            }
+        }
+        return groups;
     }
 
 }

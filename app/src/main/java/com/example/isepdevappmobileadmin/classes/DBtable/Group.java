@@ -43,6 +43,9 @@ public class Group implements Parcelable {
         ClientId = clientId;
     }
 
+    public Group() {
+    }
+
     protected Group(Parcel in) {
     }
 
