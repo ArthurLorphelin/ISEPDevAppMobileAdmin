@@ -70,6 +70,29 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "id integer primary key autoincrement," +
                 "adminId integer not null)";
         db.execSQL(creationModuleManagerTable);
+
+        // We create the Groupe Table with an id, a name, a schoolYearId and a clientId
+        String creationGroupeTable = "create table Groupe (" +
+                "id integer primary key autoincrement," +
+                "name text not null," +
+                "schoolYearId int not null," +
+                "clientId int)";
+        db.execSQL(creationGroupeTable);
+
+        // We create the SchoolYear Table with an id and a name
+        String creationSchoolYearTable = "create table SchoolYear (" +
+                "id integer primary key autoincrement," +
+                "name text not null)";
+        db.execSQL(creationSchoolYearTable);
+
+        // We insert the schoolYear in the Database and some groups
+        String insertSchoolYearInDB = "INSERT INTO SchoolYear (name) VALUES ('2023-2024')";
+        db.execSQL(insertSchoolYearInDB);
+        for (int i = 1; i < 11; i++) {
+            String insertGroupInDB = "INSERT INTO Groupe (name, schoolYearId) " +
+                    "VALUES ('Group " + i + "', 1)";
+            db.execSQL(insertGroupInDB);
+        }
     }
 
     @Override
