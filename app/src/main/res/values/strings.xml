@@ -1,8 +1,22 @@
 <resources>
     <string name="app_name">ISEPDevAppMobileAdmin</string>
-    <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="sign_in">Sign In</string>
     <string name="password">Password</string>
     <string name="new_on_the_app_text">New on the app? \nSign up here</string>
     <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="admin_role">Admin role :</string>
+    <string name="user_already_in_database">User already in Database</string>
+    <string name="back_to_sign_up">Back to Sign Up</string>
+    <string name="user_registered_in_database">User registered in Database</string>
+    <string name="back_to_sign_in">Back to Sign In</string>
+    <string name="user_not_in_database">User not in Database</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string-array name="admin_role">
+        <item>Module Manager</item>
+        <item>Component Manager</item>
+        <item>Tutor</item>
+    </string-array>
 </resources>
