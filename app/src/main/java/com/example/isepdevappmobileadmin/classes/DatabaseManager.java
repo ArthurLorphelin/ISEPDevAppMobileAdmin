@@ -13,11 +13,10 @@ import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin6.db";
     private static final int DATABASE_VERSION = 1;
 
     // We create the constructor function of the class
@@ -55,21 +54,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // We create the Tutor Admin Table with an id, an adminId, a groupId and a componentId
         String creationTutorTable = "create table Tutor (" +
                 "id integer primary key autoincrement," +
-                "adminId int not null," +
-                "groupId int," +
-                "componentId int)";
+                "adminId integer not null," +
+                "groupId integer," +
+                "componentId integer)";
         db.execSQL(creationTutorTable);
 
         // We create the Component Manager Table with an id and an adminId
         String creationComponentManagerTable = "create table ComponentManager (" +
                 "id integer primary key autoincrement," +
-                "adminId int)";
+                "adminId integer not null)";
         db.execSQL(creationComponentManagerTable);
 
         // We create the Module Manager Table with an id and an adminId
         String creationModuleManagerTable = "create table ModuleManager (" +
                 "id integer primary key autoincrement," +
-                "adminId int)";
+                "adminId integer not null)";
         db.execSQL(creationModuleManagerTable);
     }
 
@@ -89,16 +88,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // We instantiate the array variable in which all Admins will be stored
         ArrayList<Admin> admins = new ArrayList<>();
         String sql = "select * from Admin";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
 
         // We run the SQL String and store each admin into the array list
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String email = cursor.getString(cursor.getColumnIndex("email"));
-                String password = cursor.getString(cursor.getColumnIndex("password"));
-                String firstName = cursor.getString(cursor.getColumnIndex("firstName"));
-                String lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex("password"));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex("firstName"));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+                @SuppressLint("Range") int adminRoleId = cursor.getInt(cursor.getColumnIndex("adminRoleId"));
 
                 Admin admin = new Admin();
                 admin.setId(id);
@@ -106,6 +106,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 admin.setPassword(password);
                 admin.setFirstName(firstName);
                 admin.setLastName(lastName);
+                admin.setAdminRoleId(adminRoleId);
 
                 admins.add(admin);
                 cursor.moveToNext();
@@ -117,14 +118,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public ArrayList<AdminRole> getAllAdminRoles() {
         ArrayList<AdminRole> adminRoles = new ArrayList<>();
-        String sql = "select * from AdminRole";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        String sql = "SELECT * FROM AdminRole";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
 
         // We run the SQL String and store each admin into the array list
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
 
                 AdminRole adminRole = new AdminRole();
                 adminRole.setId(id);
@@ -140,13 +141,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public ArrayList<Tutor> getAllTutors() {
         ArrayList<Tutor> tutors = new ArrayList<>();
         String sql = "select * from Tutor";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
-                int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
-                int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+                @SuppressLint("Range") int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
+                @SuppressLint("Range") int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
 
                 Tutor tutor = new Tutor();
                 tutor.setId(id);
@@ -164,11 +165,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public ArrayList<ComponentManager> getAllComponentManagers() {
         ArrayList<ComponentManager> componentManagers = new ArrayList<>();
         String sql = "select* from ComponentManager";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
 
                 ComponentManager componentManager = new ComponentManager();
                 componentManager.setId(id);
@@ -184,11 +185,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public ArrayList<ModuleManager> getAllModuleManagers() {
         ArrayList<ModuleManager> moduleManagers = new ArrayList<>();
         String sql = "select * from ModuleManager";
-        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
 
                 ModuleManager moduleManager = new ModuleManager();
                 moduleManager.setId(id);

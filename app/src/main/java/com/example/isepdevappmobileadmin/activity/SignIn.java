@@ -10,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
@@ -25,7 +26,7 @@ public class SignIn extends AppCompatActivity {
 
     // We instantiate the public variables that will store the adminId, the adminRole and the roleId;
     public static int ADMIN_ID;
-    public static String ADMIN_ROLE;
+    public static String ADMIN_ROLE_NAME;
     public static int ROLE_ID;
 
     @Override
@@ -68,24 +69,44 @@ public class SignIn extends AppCompatActivity {
                     // We verify that the password is the correct one for this admin
                     if (Objects.equals(currentAdmin.getPassword(), password)) {
 
-                        // We get from the Database all Tutors, Component managers and Module managers
-                        ArrayList<Tutor> allTutorsInDB = databaseManager.getAllTutors();
-                        ArrayList<ComponentManager> allComponentManagersInDB = databaseManager.getAllComponentManagers();
-                        ArrayList<ModuleManager> allModuleManagersInDB = databaseManager.getAllModuleManagers();
-
-                        // We search in Tutors if
-                        for (int i = 0; i <allTutorsInDB.size(); i++) {
-
+                        // We get the current AdminRole of the Admin
+                        ArrayList<AdminRole> adminRoles = databaseManager.getAllAdminRoles();
+                        for (int i = 0; i < adminRoles.size(); i++) {
+                            AdminRole adminRole = adminRoles.get(i);
+                            if (currentAdmin.getAdminRoleId() == adminRole.getId()){
+                                ADMIN_ROLE_NAME = adminRole.getName();
+                            }
                         }
 
                         // We differentiate the cases depending on the Admin role : Component Manager, Tutor or Module Manager
-                        if (Objects.equals(ADMIN_ROLE, "Component Manager")) {
+                        if (Objects.equals(ADMIN_ROLE_NAME, "Component Manager")) {
+                            ArrayList<ComponentManager> allComponentManagersInDB = databaseManager.getAllComponentManagers();
+                            for (int i = 0; i < allComponentManagersInDB.size(); i++) {
+                                ComponentManager componentManager = allComponentManagersInDB.get(i);
+                                if (currentAdmin.getId() == componentManager.getAdminId()){
+                                    ROLE_ID = componentManager.getId();
+                                }
+                            }
                             Intent componentManagerIntent = new Intent(getApplicationContext(), ComponentManagerActivity.class);
                             startActivity(componentManagerIntent);
-                        } else if (Objects.equals(ADMIN_ROLE, "Module Manager")) {
+                        } else if (Objects.equals(ADMIN_ROLE_NAME, "Module Manager")) {
+                            ArrayList<ModuleManager> allModuleManagersInDB = databaseManager.getAllModuleManagers();
+                            for (int i = 0; i < allModuleManagersInDB.size(); i++) {
+                                ModuleManager moduleManager = allModuleManagersInDB.get(i);
+                                if (currentAdmin.getId() == moduleManager.getAdminId()){
+                                    ROLE_ID = moduleManager.getId();
+                                }
+                            }
                             Intent moduleManagerIntent = new Intent(getApplicationContext(), ModuleManagerActivity.class);
                             startActivity(moduleManagerIntent);
-                        } else if (Objects.equals(ADMIN_ROLE, "Tutor")) {
+                        } else if (Objects.equals(ADMIN_ROLE_NAME, "Tutor")) {
+                            ArrayList<Tutor> allTutorsInDB = databaseManager.getAllTutors();
+                            for (int i = 0; i < allTutorsInDB.size(); i++) {
+                                Tutor tutor = allTutorsInDB.get(i);
+                                if (currentAdmin.getId() == tutor.getAdminId()){
+                                    ROLE_ID = tutor.getId();
+                                }
+                            }
                             Intent tutorIntent = new Intent(getApplicationContext(), TutorActivity.class);
                             startActivity(tutorIntent);
                         }
