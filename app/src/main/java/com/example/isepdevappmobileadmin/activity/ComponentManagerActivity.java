@@ -1,8 +1,10 @@
 package com.example.isepdevappmobileadmin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +20,9 @@ import java.util.ArrayList;
 
 public class ComponentManagerActivity extends AppCompatActivity {
     private DatabaseManager databaseManager;
+    private int adminId = SignIn.ADMIN_ID;
+    private String adminRoleName = SignIn.ADMIN_ROLE_NAME;
+    private int roleId = SignIn.ROLE_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +69,16 @@ public class ComponentManagerActivity extends AppCompatActivity {
             }
         });
 
+        // We now define the activity linked to the user clicking on the user Icon
+        ImageButton profileImageButton = findViewById(R.id.profile_image_button_for_component_manager_in_group_list);
+        profileImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToProfilePageIntent = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(goToProfilePageIntent);
+            }
+        });
 
-
-
-        ImageButton profileImageButton = findViewById(R.id.profile_image_button);
+        // We now defin the
     }
 }
