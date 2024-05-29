@@ -1,11 +1,13 @@
 package com.example.isepdevappmobileadmin.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -79,6 +81,14 @@ public class ComponentManagerActivity extends AppCompatActivity {
             }
         });
 
-        // We now defin the
+        // We now define the actions when the user click on a Details button
+        Button groupDetailsButton = findViewById(R.id.details_about_group_for_component_manager);
+        groupDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent groupDetailsIntent = new Intent(getApplicationContext(), GroupDetailsForComponentManager.class);
+                startActivity(groupDetailsIntent);
+            }
+        });
     }
 }
