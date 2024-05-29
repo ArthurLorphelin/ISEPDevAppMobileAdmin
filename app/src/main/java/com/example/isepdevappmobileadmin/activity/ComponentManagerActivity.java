@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,9 +23,7 @@ import java.util.ArrayList;
 
 public class ComponentManagerActivity extends AppCompatActivity {
     private DatabaseManager databaseManager;
-    private int adminId = SignIn.ADMIN_ID;
-    private String adminRoleName = SignIn.ADMIN_ROLE_NAME;
-    private int roleId = SignIn.ROLE_ID;
+    public static String GROUP_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +80,10 @@ public class ComponentManagerActivity extends AppCompatActivity {
             }
         });
 
-        // We now define the actions when the user click on a Details button
-        Button groupDetailsButton = findViewById(R.id.details_about_group_for_component_manager);
-        groupDetailsButton.setOnClickListener(new View.OnClickListener() {
+        listViewGroups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GROUP_NAME = parent.getItemAtPosition(position).toString().trim();
                 Intent groupDetailsIntent = new Intent(getApplicationContext(), GroupDetailsForComponentManager.class);
                 startActivity(groupDetailsIntent);
             }

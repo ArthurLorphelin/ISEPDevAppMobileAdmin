@@ -5,14 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.GroupDetailsForComponentManager">
+    tools:context=".activity.GroupDetailsForComponentManager"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Group Details"
         android:gravity="center"
-        android:textSize="50sp">
+        android:textSize="50sp"
+        android:textColor="@color/black">
     </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
