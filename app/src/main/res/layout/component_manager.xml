@@ -6,17 +6,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activity.ComponentManagerActivity">
+    tools:context=".activity.ComponentManagerActivity"
+    android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="@string/menu"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Component Manager"
-        android:textColor="@color/black"
-        android:background="@color/white"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:layout_centerInParent="true">
-    </TextView>
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/list_of_groups_in_the_component"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp">
+        </TextView>
+
+        <EditText
+            android:id="@+id/search_bar_group_for_component_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/search"
+            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp">
+        </EditText>
+
+        <ListView
+            android:id="@+id/list_of_groups_for_component_manager_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+        </ListView>
+
+    </LinearLayout>
 
 </RelativeLayout>
