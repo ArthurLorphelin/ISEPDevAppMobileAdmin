@@ -56,7 +56,8 @@
             android:background="@color/white"
             android:gravity="center"
             android:textSize="20sp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:textStyle="bold">
         </TextView>
 
         <EditText
@@ -74,7 +75,7 @@
 
         <ListView
             android:id="@+id/list_of_groups_for_component_manager_list_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:cacheColorHint="@color/black">

@@ -23,17 +23,18 @@ public class ComponentManagerActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.component_manager);
 
-        ListView listViewGroups = findViewById(R.id.list_of_groups_for_component_manager_list_view);
-        EditText searchBarListGroups = findViewById(R.id.search_bar_group_for_component_manager);
-        databaseManager = new DatabaseManager(getApplicationContext());
-        ImageButton profileImageButton = findViewById(R.id.profile_image_button);
 
+        ListView listViewGroups = findViewById(R.id.list_of_groups_for_component_manager_list_view);
+        databaseManager = new DatabaseManager(getApplicationContext());
         ArrayList<Group> allGroupsInDB = databaseManager.getAllGroups();
         ArrayList<String> groupNamesArrayList = new ArrayList<>();
         for (int i = 0; i < allGroupsInDB.size(); i++) {
             groupNamesArrayList.add(allGroupsInDB.get(i).getName());
         }
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_view_item, groupNamesArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_view_item, R.id.list_view_item_text_view, groupNamesArrayList);
         listViewGroups.setAdapter(adapter);
+
+        EditText searchBarListGroups = findViewById(R.id.search_bar_group_for_component_manager);
+        ImageButton profileImageButton = findViewById(R.id.profile_image_button);
     }
 }
