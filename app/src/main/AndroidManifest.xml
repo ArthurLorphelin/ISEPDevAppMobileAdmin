@@ -13,6 +13,21 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ComponentDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddComponent"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModuleManagerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GroupDetailsForComponentManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".activity.TutorActivity"
             android:exported="false" />
         <activity
