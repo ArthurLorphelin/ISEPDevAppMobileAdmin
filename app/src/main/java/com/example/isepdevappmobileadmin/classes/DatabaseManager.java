@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
 import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
+import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
@@ -19,12 +21,13 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin12.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin13.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
     private static final int NUMBER_OF_GROUPS_PER_SCHOOL_YEAR = 10;
     private static final int NUMBER_OF_TEAMS_PER_GROUP = 6;
+    private static final int NUMBER_OF_INITIAL_COMPONENTS = 7;
 
     // We create the constructor function of the class
     public DatabaseManager(Context context) {
@@ -34,6 +37,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
     // This function is called when the app is launched for the first time and it creates the local Database
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        /*
+                                        CREATION OF ALL ESSENTIAL DATA IN THE DB
+                                -----------------------------------------------------------
+         */
+
         // We create the Admin Table in the Database with an id, an email, a password, a firstName and a lastName
         String creationAdminTableSql = "create table Admin (" +
                 "id integer primary key autoincrement," +
@@ -49,14 +58,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "id integer primary key autoincrement," +
                 "name text not null)";
         db.execSQL(creationAdminRoleTableSql);
-
-        // We insert in the Database the Admin Roles
-        String insertTutorRoleSql = "INSERT INTO AdminRole (name) VALUES ('Tutor')";
-        String insertComponentManagerRoleSql = "INSERT INTO AdminRole (name) VALUES ('Component Manager')";
-        String insertModuleManagerRoleInSql = "INSERT INTO AdminRole (name) VALUES ('Module Manager')";
-        db.execSQL(insertTutorRoleSql);
-        db.execSQL(insertComponentManagerRoleSql);
-        db.execSQL(insertModuleManagerRoleInSql);
 
         // We create the Tutor Admin Table with an id, an adminId, a groupId and a componentId
         String creationTutorTable = "create table Tutor (" +
@@ -92,10 +93,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "name text not null)";
         db.execSQL(creationSchoolYearTable);
 
-        // We insert the schoolYear in the Database
-        String insertSchoolYearInDB = "INSERT INTO SchoolYear (name) VALUES ('2023-2024')";
-        db.execSQL(insertSchoolYearInDB);
-
         // We create the Team Table in the Database with an id, a name and a groupId
         String createTeamTable = "create table Team (" +
                 "id integer primary key autoincrement," +
@@ -115,11 +112,85 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "teamId int)";
         db.execSQL(createStudentTable);
 
+        // We create the ComponentTable in the Database with an id, a name and a componentManagerId
+        String createComponentTable = "create table Component (" +
+                "id integer primary key autoincrement," +
+                "name text not null," +
+                "componentManagerId int)";
+        db.execSQL(createComponentTable);
+
+        // We create the ComponentScore Table in the Database with an id, a score, a componentId and a studentId
+        String createComponentScoreTable = "create table ComponentScore (" +
+                "id integer primary key autoincrement," +
+                "score int," +
+                "componentId int not null," +
+                "studentId int not null)";
+        db.execSQL(createComponentScoreTable);
+
+
+        /*
+                                        INSERTION OF ALL ESSENTIAL DATA IN THE DB
+                                --------------------------------------------------------------
+         */
+
+        // We insert in the Database the Admin Roles
+        String insertTutorRoleSql = "INSERT INTO AdminRole (name) VALUES ('Tutor')";
+        String insertComponentManagerRoleSql = "INSERT INTO AdminRole (name) VALUES ('Component Manager')";
+        String insertModuleManagerRoleInSql = "INSERT INTO AdminRole (name) VALUES ('Module Manager')";
+        db.execSQL(insertTutorRoleSql);
+        db.execSQL(insertComponentManagerRoleSql);
+        db.execSQL(insertModuleManagerRoleInSql);
+
+        // We insert one ComponentManager in the Database
+        String insertComponentManagerAdminSql = "INSERT INTO Admin (email, password, firstName, lastName, adminRoleId) " +
+                "VALUES ('component@manager.com', 'component', 'Component', 'Manager', 2)";
+        db.execSQL(insertComponentManagerAdminSql);
+        String insertComponentManagerSql = "INSERT INTO ComponentManager (adminId) VALUES (1)";
+        db.execSQL(insertComponentManagerSql);
+
+        // We insert one ModuleManager in the Database
+        String insertModuleManagerAdminSql = "INSERT INTO Admin (email, password, firstName, lastName, adminRoleId) " +
+                "VALUES ('module@manager.com', 'module', 'Module', 'Manager', 3)";
+        db.execSQL(insertModuleManagerAdminSql);
+        String insertModuleManagerSql = "INSERT INTO ModuleManager (adminId) VALUES (2)";
+        db.execSQL(insertModuleManagerSql);
+
+        // We insert one Tutor in the Database
+        String insertTutorAdminSql = "INSERT INTO Admin (email, password, firstName, lastName, adminRoleId) " +
+                "VALUES ('tutor@manager.com', 'tutor', 'Tutor', 'Manager', 1)";
+        db.execSQL(insertTutorAdminSql);
+        String insertTutorSql = "INSERT INTO Tutor (adminId, groupId, componentId) VALUES (3, 1, 1)";
+        db.execSQL(insertTutorSql);
+
+
+        // We insert the schoolYear in the Database
+        String insertSchoolYearInDB = "INSERT INTO SchoolYear (name) VALUES ('2023-2024')";
+        db.execSQL(insertSchoolYearInDB);
+
+
+        // We insert the initial Components in the Database
+        String insertComponentGeneralESInDB = "INSERT INTO Component (name, componentManagerId) VALUES ('Général E-S', 1)";
+        db.execSQL(insertComponentGeneralESInDB);
+        String insertComponentElectroniqueInDB = "INSERT INTO Component (name) VALUES ('Électronique')";
+        db.execSQL(insertComponentElectroniqueInDB);
+        String insertComponentSignalInDB = "INSERT INTO Component (name) VALUES ('Signal')";
+        db.execSQL(insertComponentSignalInDB);
+        String insertComponentGeneralITInDB = "INSERT INTO Component (name) VALUES ('Général I-T')";
+        db.execSQL(insertComponentGeneralITInDB);
+        String insertComponentInformatiqueInDB = "INSERT INTO Component (name) VALUES ('Informatique')";
+        db.execSQL(insertComponentInformatiqueInDB);
+        String insertComponentTelecommunicationInDB = "INSERT INTO Component (name) VALUES ('Télécommunication')";
+        db.execSQL(insertComponentTelecommunicationInDB);
+        String insertComponentIntegrationInDB = "INSERT INTO Component (name) VALUES ('Intégration')";
+        db.execSQL(insertComponentIntegrationInDB);
+
+
         // We insert the Groups in the Database
         for (int groupIndex = 1; groupIndex < NUMBER_OF_GROUPS_PER_SCHOOL_YEAR + 1; groupIndex++) {
             String insertGroupInDB = "INSERT INTO Groupe (name, schoolYearId) " +
                     "VALUES ('Group " + groupIndex + "', 1)";
             db.execSQL(insertGroupInDB);
+
             // We insert the Teams in the Database
             for (int teamIndex = 1; teamIndex < NUMBER_OF_TEAMS_PER_GROUP + 1; teamIndex++) {
                 String insertTeamInDB = "INSERT INTO Team (name, groupId) " +
@@ -136,6 +207,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String insertStudentInDB = "INSERT INTO Student (email, password, firstName, lastName, studentNumber, groupId, teamId) " +
                         "VALUES ('" + studentEmail + "', '" + studentPassword + "', '" + firstName + "', '" + lastName + "', " + studentNumber + ", " + groupIndex + ", " + teamId + ")";
                 db.execSQL(insertStudentInDB);
+
+                // We insert the ComponentScores in the Database
+                for (int componentIndex = 1; componentIndex < NUMBER_OF_INITIAL_COMPONENTS + 1; componentIndex++) {
+                    String insertComponentScoreInDB = "INSERT INTO ComponentScore (componentId, studentId) " +
+                            "VALUES (" + componentIndex + ", " + teamId + ")";
+                    db.execSQL(insertComponentScoreInDB);
+                }
             }
         }
     }
@@ -363,5 +441,51 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return students;
+    }
+
+    public ArrayList<ComponentScore> getAllComponentScores() {
+        ArrayList<ComponentScore> componentScores = new ArrayList<>();
+        String sql = "select * from ComponentScore";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex("score"));
+                @SuppressLint("Range") int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+                @SuppressLint("Range") int studentId = cursor.getInt(cursor.getColumnIndex("studentId"));
+
+                ComponentScore componentScore = new ComponentScore();
+                componentScore.setId(id);
+                componentScore.setScore(score);
+                componentScore.setComponentId(componentId);
+                componentScore.setStudentId(studentId);
+
+                componentScores.add(componentScore);
+                cursor.moveToNext();
+            }
+        }
+        return componentScores;
+    }
+
+    public ArrayList<Component> getAllComponents() {
+        ArrayList<Component> components = new ArrayList<>();
+        String sql = "select * from Component";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int componentManagerId = cursor.getInt(cursor.getColumnIndex("componentManagerId"));
+
+                Component component = new Component();
+                component.setId(id);
+                component.setName(name);
+                component.setComponentManagerId(componentManagerId);
+
+                components.add(component);
+                cursor.moveToNext();
+            }
+        }
+        return components;
     }
 }

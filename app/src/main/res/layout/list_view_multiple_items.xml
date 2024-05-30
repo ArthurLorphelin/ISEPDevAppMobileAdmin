@@ -19,7 +19,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Component Score"
         android:textSize="18sp"
         android:layout_marginTop="15dp"
         android:layout_alignParentEnd="true"

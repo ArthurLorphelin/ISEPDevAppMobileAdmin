@@ -14,6 +14,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.R;
+import com.example.isepdevappmobileadmin.adapter.StudentAndComponentScoreAdapter;
+import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
@@ -48,19 +50,69 @@ public class GroupDetailsForComponentManager extends AppCompatActivity {
             }
         }
 
-        // We create a list in which is added all Students of the selected Group by first and last Name
-        ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
-        ArrayList<String> studentNamesInSelectedGroup = new ArrayList<>();
-        for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
-            if (allStudentsInDB.get(studentIndex).getGroupId() == groupId) {
-                studentNamesInSelectedGroup.add(allStudentsInDB.get(studentIndex).getFirstName() + " " + allStudentsInDB.get(studentIndex).getLastName());
+        // We get the Component in which the user is the Manager
+        ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+        int componentId = 0;
+        for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+            if (allComponentsInDB.get(componentIndex).getComponentManagerId() == SignIn.ROLE_ID) {
+                componentId = allComponentsInDB.get(componentId).getId();
             }
         }
 
+        // We get the Students that are in the group
+        ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
+        ArrayList<Student> studentsInSelectedGroup = new ArrayList<>();
+        for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
+            if (allStudentsInDB.get(studentIndex).getGroupId() == groupId) {
+                studentsInSelectedGroup.add(allStudentsInDB.get(studentIndex));
+            }
+        }
+
+        // We display the needed information
+        ListView studentAndComponentScoreListView = findViewById(R.id.list_of_students_in_selected_group_for_component_manager_list_view);
+        StudentAndComponentScoreAdapter studentAndComponentScoreAdapter = new StudentAndComponentScoreAdapter(this, studentsInSelectedGroup);
+        studentAndComponentScoreListView.setAdapter(studentAndComponentScoreAdapter);
+
+        /*
+        // We create in list in which there are only the ComponentScores for this Component
+        ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
+        ArrayList<ComponentScore> componentScoresForThisComponent = new ArrayList<>();
+        for (int componentScoreIndex = 0; componentScoreIndex < allComponentScoresInDB.size(); componentScoreIndex++) {
+            if (allComponentScoresInDB.get(componentScoreIndex).getComponentId() == componentId) {
+                componentScoresForThisComponent.add(allComponentScoresInDB.get(componentScoreIndex));
+            }
+        }
+
+        // We create a list in which is added all Students of the selected Group and the corresponding ComponentScore
+        ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
+        ArrayList<String> studentNamesInSelectedGroup = new ArrayList<>();
+        ArrayList<String> componentScoreForStudent = new ArrayList<>();
+
+        // If the student belongs to group selected
+        for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
+            if (allStudentsInDB.get(studentIndex).getGroupId() == groupId) {
+
+                // If it is the componentScore for this student
+                for (int componentScoreIndex = 0; componentScoreIndex < componentScoresForThisComponent.size(); componentScoreIndex++) {
+                    if (componentScoresForThisComponent.get(componentScoreIndex).getStudentId() == allStudentsInDB.get(studentIndex).getId()) {
+                        // We add the Component Score value and the Student name to the corresponding Array List of Strings
+                        componentScoreForStudent.add(String.valueOf(componentScoresForThisComponent.get(componentScoreIndex).getScore()));
+                        studentNamesInSelectedGroup.add(allStudentsInDB.get(studentIndex).getFirstName() + " " + allStudentsInDB.get(studentIndex).getLastName());
+                    }
+                }
+            }
+        }
+
+
         // We display the corresponding Students in the ListView
         ListView listViewStudentsInGroup = findViewById(R.id.list_of_students_in_selected_group_for_component_manager_list_view);
+
+
         ArrayAdapter<String> adapterStudentNamesInGroup = new ArrayAdapter<>(this, R.layout.list_view_multiple_items, R.id.list_view_first_item_text_view, studentNamesInSelectedGroup);
+        ArrayAdapter<String> adapterComponentScoreForStudent = new ArrayAdapter<>(this, R.layout.list_view_multiple_items, R.id.list_view_second_item_text_view, componentScoreForStudent);
         listViewStudentsInGroup.setAdapter(adapterStudentNamesInGroup);
+        listViewStudentsInGroup.setAdapter(adapterComponentScoreForStudent);
+        */
 
         // We create the activity due to the user clicking on the PreviousPage Image Button
         ImageButton previousPageImageButton = findViewById(R.id.back_to_component_manager_page_from_list_of_students_in_group);
@@ -91,14 +143,24 @@ public class GroupDetailsForComponentManager extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ArrayList<String> studentNameListDuringSearch = new ArrayList<>();
-                for (int i = 0; i < studentNamesInSelectedGroup.size(); i++) {
-                    if (studentNamesInSelectedGroup.get(i).toUpperCase().contains(s.toString().toUpperCase())) {
-                        studentNameListDuringSearch.add(studentNamesInSelectedGroup.get(i));
+                ArrayList<Student> studentsDuringSearch = new ArrayList<>();
+                for (int studentIndex = 0; studentIndex < studentsInSelectedGroup.size(); studentIndex++) {
+                    if (studentsInSelectedGroup.get(studentIndex).getFirstName().toUpperCase().contains(s.toString().toUpperCase())
+                            || studentsInSelectedGroup.get(studentIndex).getLastName().toUpperCase().contains(s.toString().toUpperCase())) {
+                        studentsDuringSearch.add(studentsInSelectedGroup.get(studentIndex));
                     }
                 }
+                StudentAndComponentScoreAdapter studentAndComponentScoreAdapterDuringSearch = new StudentAndComponentScoreAdapter(getApplicationContext(), studentsDuringSearch);
+                studentAndComponentScoreListView.setAdapter(studentAndComponentScoreAdapterDuringSearch);
+
+                /*
                 ArrayAdapter<String> adapterStudentNamesDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_multiple_items, R.id.list_view_first_item_text_view, studentNameListDuringSearch);
+                ArrayAdapter<String> adapterComponentScoreForStudentDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_multiple_items, R.id.list_view_second_item_text_view, componentScoreForStudentDuringSearch);
                 listViewStudentsInGroup.setAdapter(adapterStudentNamesDuringSearch);
+                listViewStudentsInGroup.setAdapter(adapterComponentScoreForStudentDuringSearch);
+
+                 */
+
             }
 
             @Override
