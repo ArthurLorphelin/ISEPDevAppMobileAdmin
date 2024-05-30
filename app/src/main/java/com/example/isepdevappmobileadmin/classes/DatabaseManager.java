@@ -601,4 +601,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql = "UPDATE Component SET name = '" + name + "', componentManagerId = " + componentManagerId + " WHERE id = " + componentId;
         this.getWritableDatabase().execSQL(sql);
     }
+
+    public void deleteComponent(String name) {
+        String sql = "DELETE FROM Component WHERE name = '" + name + "'";
+        this.getWritableDatabase().execSQL(sql);
+    }
 }
