@@ -20,7 +20,6 @@ import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import java.util.ArrayList;
 
 public class ComponentManagerActivity extends AppCompatActivity {
-    private DatabaseManager databaseManager;
     public static String GROUP_NAME;
 
     @Override
@@ -31,7 +30,7 @@ public class ComponentManagerActivity extends AppCompatActivity {
 
         // We now instantiate the value of the items presented in the ListView
         ListView listViewGroups = findViewById(R.id.list_of_groups_for_component_manager_list_view);
-        databaseManager = new DatabaseManager(getApplicationContext());
+        DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
         ArrayList<Group> allGroupsInDB = databaseManager.getAllGroups();
         ArrayList<String> groupNamesArrayList = new ArrayList<>();
         for (int i = 0; i < allGroupsInDB.size(); i++) {
