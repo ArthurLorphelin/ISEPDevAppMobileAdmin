@@ -11,14 +11,20 @@ import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Student;
+import com.example.isepdevappmobileadmin.classes.DBtable.Team;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin7.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin12.db";
     private static final int DATABASE_VERSION = 1;
+
+    // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
+    private static final int NUMBER_OF_GROUPS_PER_SCHOOL_YEAR = 10;
+    private static final int NUMBER_OF_TEAMS_PER_GROUP = 6;
 
     // We create the constructor function of the class
     public DatabaseManager(Context context) {
@@ -86,13 +92,51 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "name text not null)";
         db.execSQL(creationSchoolYearTable);
 
-        // We insert the schoolYear in the Database and some groups
+        // We insert the schoolYear in the Database
         String insertSchoolYearInDB = "INSERT INTO SchoolYear (name) VALUES ('2023-2024')";
         db.execSQL(insertSchoolYearInDB);
-        for (int i = 1; i < 11; i++) {
+
+        // We create the Team Table in the Database with an id, a name and a groupId
+        String createTeamTable = "create table Team (" +
+                "id integer primary key autoincrement," +
+                "name text not null," +
+                "groupId int not null)";
+        db.execSQL(createTeamTable);
+
+        // We create the Student Table in the Database with an id, an email, a password, a  firstName, a lastName, a studentNumber, a groupId and a teamId
+        String createStudentTable = "create table Student (" +
+                "id integer primary key autoincrement," +
+                "email text not null," +
+                "password text not null," +
+                "firstName text not null," +
+                "lastName text not null," +
+                "studentNumber int not null," +
+                "groupId int," +
+                "teamId int)";
+        db.execSQL(createStudentTable);
+
+        // We insert the Groups in the Database
+        for (int groupIndex = 1; groupIndex < NUMBER_OF_GROUPS_PER_SCHOOL_YEAR + 1; groupIndex++) {
             String insertGroupInDB = "INSERT INTO Groupe (name, schoolYearId) " +
-                    "VALUES ('Group " + i + "', 1)";
+                    "VALUES ('Group " + groupIndex + "', 1)";
             db.execSQL(insertGroupInDB);
+            // We insert the Teams in the Database
+            for (int teamIndex = 1; teamIndex < NUMBER_OF_TEAMS_PER_GROUP + 1; teamIndex++) {
+                String insertTeamInDB = "INSERT INTO Team (name, groupId) " +
+                        "VALUES ('Team " + groupIndex + "-" + String.valueOf(Character.toChars(teamIndex + 64)) + "', " + groupIndex + ")";
+                db.execSQL(insertTeamInDB);
+
+                // We insert the Students in the Database (one Student per Team)
+                int teamId = ((groupIndex - 1) * NUMBER_OF_TEAMS_PER_GROUP) + teamIndex;
+                String studentEmail = "student" + teamId + "@isep.fr";
+                String studentPassword = "student" + teamId;
+                String firstName = "Student";
+                String lastName = String.valueOf(teamId);
+                int studentNumber = 6000 + teamId;
+                String insertStudentInDB = "INSERT INTO Student (email, password, firstName, lastName, studentNumber, groupId, teamId) " +
+                        "VALUES ('" + studentEmail + "', '" + studentPassword + "', '" + firstName + "', '" + lastName + "', " + studentNumber + ", " + groupIndex + ", " + teamId + ")";
+                db.execSQL(insertStudentInDB);
+            }
         }
     }
 
@@ -248,7 +292,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql = "select * from Groupe";
         @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
         if (cursor.moveToFirst()) {
-            while ((!cursor.isAfterLast())) {
+            while (!cursor.isAfterLast()) {
                 @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
                 @SuppressLint("Range") int schoolYearId = cursor.getInt(cursor.getColumnIndex("schoolYearId"));
@@ -267,4 +311,57 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return groups;
     }
 
+    public ArrayList<Team> getAllTeams() {
+        ArrayList<Team> teams = new ArrayList<>();
+        String sql = "select * from Team";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
+
+                Team team = new Team();
+                team.setId(id);
+                team.setName(name);
+                team.setGroupId(groupId);
+
+                teams.add(team);
+                cursor.moveToNext();
+            }
+        }
+        return teams;
+    }
+
+    public ArrayList<Student> getAllStudents() {
+        ArrayList<Student> students = new ArrayList<>();
+        String sql = "select * from Student";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex("password"));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex("firstName"));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+                @SuppressLint("Range") int studentNumber = cursor.getInt(cursor.getColumnIndex("studentNumber"));
+                @SuppressLint("Range") int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
+                @SuppressLint("Range") int teamId = cursor.getInt(cursor.getColumnIndex("teamId"));
+
+                Student student = new Student();
+                student.setId(id);
+                student.setEmail(email);
+                student.setPassword(password);
+                student.setFirstName(firstName);
+                student.setLastName(lastName);
+                student.setStudentNumber(studentNumber);
+                student.setGroupId(groupId);
+                student.setTeamId(teamId);
+
+                students.add(student);
+                cursor.moveToNext();
+            }
+        }
+        return students;
+    }
 }
