@@ -591,4 +591,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         return skills;
     }
+
+    public void updateComponentWithoutComponentManager(int componentId, String name) {
+        String sql = "UPDATE Component SET name = '" + name + "' WHERE id = " + componentId;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateComponentWithComponentManager(int componentId, String name, int componentManagerId) {
+        String sql = "UPDATE Component SET name = '" + name + "', componentManagerId = " + componentManagerId + " WHERE id = " + componentId;
+        this.getWritableDatabase().execSQL(sql);
+    }
 }
