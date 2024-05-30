@@ -13,6 +13,7 @@ import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.Team;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin13.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin20.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -127,6 +128,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "studentId int not null)";
         db.execSQL(createComponentScoreTable);
 
+        // We create the Skill Table in the Database with an id, a title, a description, a linkToViewDetails and a componentId
+        String createSkillTable = "create table Skill (" +
+                "id integer primary key autoincrement," +
+                "title text not null," +
+                "description text not null," +
+                "linkToViewDetails text," +
+                "componentId int not null)";
+        db.execSQL(createSkillTable);
+
 
         /*
                                         INSERTION OF ALL ESSENTIAL DATA IN THE DB
@@ -184,6 +194,63 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String insertComponentIntegrationInDB = "INSERT INTO Component (name) VALUES ('Intégration')";
         db.execSQL(insertComponentIntegrationInDB);
 
+        // We insert one Skill per Component in the Database
+        String title = "Communiquer à l oral";
+        String description = "Concerne le discours mais également le support de présentation" +
+                "- Faire preuve d aisance à l oral" +
+                "- Présenter un exposé clair structuré et synthétique" +
+                "- S avoir analyser et synthétiser ses idées scientifiques en s adaptant à son public" +
+                "- Savoir dialoguer avec le jury de façon qualitative";
+        int componentId = 1;
+        String insertSkill1InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill1InDB);
+
+        title = "Contextualisation et regard critique";
+        description = "- Contextualiser les tests en situation réelle" +
+                "- Exercer un regard critique sur les niveaux et critères du CDC" +
+                "- Faire fonctionner le système en gardant ce contexte en tête";
+        componentId = 2;
+        String insertSkill2InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill2InDB);
+
+        title = "Calcul d une puissance";
+        description = "- Savoir estimer la puissance moyenne d un signal en W et en dBm " +
+                "- Savoir estimer la puissance instantannée d un signal stochastique " +
+                "- Savoir détecter la présence ou l absence d un signal utile";
+        componentId = 3;
+        String insertSkill3InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill3InDB);
+
+        title = "Répondre au cahier des charges";
+        description = "- Réaliser les fonctionalités principales" +
+                "- Réaliser les fonctionnalités de confort" +
+                "- Réaliser les fonctionnalités de luxe";
+        componentId = 4;
+        String insertSkill4InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill4InDB);
+
+        title = "Spécification des besoins";
+        description = "- Extraire et comprendre les besoins fonctionnels et non fonctionnels" +
+                "- Modéliser les fonctionnalités (UML & scénario & basique & algorithme & processus & langage naturel & etc.)";
+        componentId = 5;
+        String insertSkill5InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill5InDB);
+
+        title = "Vue systématique";
+        description = "- Spécifier l architecture générale d un réseau de capteurs" +
+                "- Etude et compréhension d une architecture et des technologies selectionnées" +
+                "- Spécification d une architecture évoluée et prise en compte des éléments clivants des technologies sélectionnées";
+        componentId = 6;
+        String insertSkill6InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill6InDB);
+
+        title = "Aisance à l oral";
+        description = "- Aisance à l oral & audibilité & débit et tonalité adaptés au discours" +
+                "- Expression non verbale (gestuelle & occupation de l espace & maintien de l intérêt et de l auditoire)" +
+                "Il s agit d une évaluation individuelle";
+        componentId = 7;
+        String insertSkill7InDB = "INSERT INTO Skill (title, description, componentId) VALUES ('"+ title + "', '" + description + "', " + componentId + ")";
+        db.execSQL(insertSkill7InDB);
 
         // We insert the Groups in the Database
         for (int groupIndex = 1; groupIndex < NUMBER_OF_GROUPS_PER_SCHOOL_YEAR + 1; groupIndex++) {
@@ -497,5 +564,31 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertComponentWithComponentManager(String name, int componentManagerId) {
         String sql = "INSERT INTO Component (name, componentManagerId) VALUES ('" + name + "', " + componentManagerId + ")";
         this.getWritableDatabase().execSQL(sql);
+    }
+
+    public ArrayList<Skill> getAllSkills() {
+        ArrayList<Skill> skills = new ArrayList<>();
+        String sql = "select * from Skill";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+                @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex("description"));
+                @SuppressLint("Range") String linkToViewDetails = cursor.getString(cursor.getColumnIndex("linkToViewDetails"));
+                @SuppressLint("Range") int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+
+                Skill skill = new Skill();
+                skill.setId(id);
+                skill.setTitle(title);
+                skill.setDescription(description);
+                skill.setLinkToViewDetails(linkToViewDetails);
+                skill.setComponentId(componentId);
+
+                skills.add(skill);
+                cursor.moveToNext();
+            }
+        }
+        return skills;
     }
 }

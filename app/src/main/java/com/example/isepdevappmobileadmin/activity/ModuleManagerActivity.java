@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class ModuleManagerActivity extends AppCompatActivity {
     private DatabaseManager databaseManager;
-    public String COMPONENT_NAME;
+    public static String COMPONENT_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

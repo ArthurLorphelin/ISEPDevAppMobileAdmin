@@ -13,6 +13,18 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddSkill"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SkillDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DeleteComponent"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyComponent"
+            android:exported="false" />
+        <activity
             android:name=".activity.ComponentDetailsForModuleManager"
             android:exported="false" />
         <activity
