@@ -1,6 +1,5 @@
 package com.example.isepdevappmobileadmin.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -39,7 +37,7 @@ public class ComponentManagerActivity extends AppCompatActivity {
         for (int i = 0; i < allGroupsInDB.size(); i++) {
             groupNamesArrayList.add(allGroupsInDB.get(i).getName());
         }
-        ArrayAdapter<String> adapterAllGroups = new ArrayAdapter<>(this, R.layout.list_view_item, R.id.list_view_item_text_view, groupNamesArrayList);
+        ArrayAdapter<String> adapterAllGroups = new ArrayAdapter<>(this, R.layout.list_view_single_item, R.id.list_view_item_text_view, groupNamesArrayList);
         listViewGroups.setAdapter(adapterAllGroups);
 
         // We now create the effect linked to the search bar
@@ -61,7 +59,7 @@ public class ComponentManagerActivity extends AppCompatActivity {
                 for (int i = 0; i < groupListDuringSearch.size(); i++) {
                     groupNamesDuringSearch.add(groupListDuringSearch.get(i).getName());
                 }
-                ArrayAdapter<String> adapterGroupsDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_item, R.id.list_view_item_text_view, groupNamesDuringSearch);
+                ArrayAdapter<String> adapterGroupsDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_single_item, R.id.list_view_item_text_view, groupNamesDuringSearch);
                 listViewGroups.setAdapter(adapterGroupsDuringSearch);
             }
 
