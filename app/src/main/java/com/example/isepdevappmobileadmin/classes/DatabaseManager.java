@@ -606,4 +606,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql = "DELETE FROM Component WHERE name = '" + name + "'";
         this.getWritableDatabase().execSQL(sql);
     }
+
+    public void insertSkill(String title, String description, String linkToViewDetails, int componentId) {
+        String sql = "INSERT INTO Skill (title, description, linkToViewDetails, componentId) " +
+                "VALUES ('" + title + "', '" + description + "', '" + linkToViewDetails + "', " + componentId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
 }

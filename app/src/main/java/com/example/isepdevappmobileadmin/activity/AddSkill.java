@@ -1,14 +1,22 @@
 package com.example.isepdevappmobileadmin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobileadmin.R;
+import com.example.isepdevappmobileadmin.classes.DBtable.Component;
+import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
+import com.example.isepdevappmobileadmin.classes.DatabaseManager;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddSkill extends AppCompatActivity {
 
@@ -17,10 +25,51 @@ public class AddSkill extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.add_skill);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // We set the previous Page Button Activity
+        ImageButton previousPageImageButton = findViewById(R.id.back_to_component_details_page_from_add_skill_page);
+        previousPageImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPreviousPage = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
+                startActivity(intentPreviousPage);
+            }
+        });
+
+        // We set the profile Page Activity
+        ImageButton profilePageImageButton = findViewById(R.id.profile_image_button_for_module_manager_in_add_skill_page);
+        profilePageImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProfilePage = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(intentProfilePage);
+            }
+        });
+
+        // We create the Add Skill Button Activity
+        Button addSkillButton = findViewById(R.id.add_skill_to_database_button);
+        addSkillButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editTextSkillTitle = findViewById(R.id.skill_title_in_add_skill_page);
+                String skillTitle = editTextSkillTitle.getText().toString();
+                EditText editTextSkillDescription = findViewById(R.id.skill_description_in_add_skill_page);
+                String skillDescription = editTextSkillDescription.getText().toString();
+                EditText editTextSkillLinkToViewDetails = findViewById(R.id.skill_link_to_view_details_in_add_skill_page);
+                String skillLinkToViewDetails = editTextSkillLinkToViewDetails.getText().toString();
+
+                DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
+                ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+                int componentId = 0;
+                for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+                    if (Objects.equals(allComponentsInDB.get(componentIndex).getName(), ModuleManagerActivity.COMPONENT_NAME)) {
+                        componentId = allComponentsInDB.get(componentIndex).getId();
+                    }
+                }
+                databaseManager.insertSkill(skillTitle, skillDescription, skillLinkToViewDetails, componentId);
+                Intent intentAddSkill = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
+                startActivity(intentAddSkill);
+            }
         });
     }
 }
