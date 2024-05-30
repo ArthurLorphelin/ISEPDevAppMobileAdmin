@@ -44,8 +44,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="35dp"
             android:visibility="visible"
-            android:background="@drawable/ic_previous_page"
-            >
+            android:background="@drawable/ic_previous_page">
         </ImageButton>
 
     </RelativeLayout>

@@ -488,4 +488,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         return components;
     }
+
+    public void insertComponentWithoutComponentManager(String name) {
+        String sql = "INSERT INTO Component (name) VALUES ('" + name + "')";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void insertComponentWithComponentManager(String name, int componentManagerId) {
+        String sql = "INSERT INTO Component (name, componentManagerId) VALUES ('" + name + "', " + componentManagerId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
 }

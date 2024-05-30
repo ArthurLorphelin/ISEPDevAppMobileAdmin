@@ -23,6 +23,9 @@
     <string name="component_score">Component Score</string>
     <string name="list_of_all_components">List of all Components</string>
     <string name="add_button">+</string>
+    <string name="add_component">Add Component</string>
+    <string name="component_name">Component Name ...</string>
+    <string name="add_component_manager">Add Component Manager</string>
     <string-array name="admin_role">
         <item>Module Manager</item>
         <item>Component Manager</item>
