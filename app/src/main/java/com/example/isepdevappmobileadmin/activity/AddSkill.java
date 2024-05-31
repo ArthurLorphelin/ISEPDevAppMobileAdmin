@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.classes.DBtable.Component;
+import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
+import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.Team;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
@@ -70,11 +72,24 @@ public class AddSkill extends AppCompatActivity {
                 // We insert the new Skill in the Database
                 databaseManager.insertSkill(skillTitle, skillDescription, skillLinkToViewDetails, componentId);
 
+                // We recover the id of the Skill just added in the Database
                 ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
                 int skillId = 0;
                 for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
                     if (Objects.equals(allSkillsInDB.get(skillIndex).getTitle(), skillTitle)) {
                         skillId = allSkillsInDB.get(skillIndex).getId();
+                    }
+                }
+
+                // For each Students in the Database, you add the SkillScore for the new Skill
+                ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
+                ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
+                for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
+                    for (int index = 0; index < allComponentScoresInDB.size(); index++) {
+                        if (allComponentScoresInDB.get(index).getStudentId() == allStudentsInDB.get(studentIndex).getId()
+                                && allComponentScoresInDB.get(index).getComponentId() == componentId) {
+                            databaseManager.insertSkillScore(skillId, allComponentScoresInDB.get(index).getId());
+                        }
                     }
                 }
 

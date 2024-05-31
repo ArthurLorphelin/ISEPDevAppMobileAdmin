@@ -19,8 +19,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
@@ -109,6 +111,21 @@ public class AddComponent extends AppCompatActivity {
                     databaseManager.insertComponentWithComponentManager(name, chosenComponentManagerId);
                 } else {
                     databaseManager.insertComponentWithoutComponentManager(name);
+                }
+
+                // We recover the id of the Component just added in the Database
+                ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+                int componentId = 0;
+                for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+                    if (Objects.equals(allComponentsInDB.get(componentIndex).getName(), name)) {
+                        componentId = allComponentsInDB.get(componentIndex).getId();
+                    }
+                }
+
+                // We add the ComponentScore for all Students
+                ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
+                for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
+                    databaseManager.insertComponentScore(componentId, allStudentsInDB.get(studentIndex).getId());
                 }
 
                 // We go back to the Components list

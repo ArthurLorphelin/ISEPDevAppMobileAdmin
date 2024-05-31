@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobileadmin.R;
+import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
@@ -58,17 +59,32 @@ public class DeleteSkill extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
-                ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
-                int skillId = 0;
-                for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
-                    if (Objects.equals(allSkillsInDB.get(skillIndex).getTitle(), ComponentDetailsForModuleManager.SKILL_NAME)){
-                        skillId = allSkillsInDB.get(skillIndex).getId();
+                // We delete the Skill and all TeamObservations for this Skill from the Database
+                ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+                int componentId = 0;
+                for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+                    if (Objects.equals(allComponentsInDB.get(componentIndex).getName(), ModuleManagerActivity.COMPONENT_NAME)) {
+                        componentId = allComponentsInDB.get(componentIndex).getId();
                     }
                 }
 
-                // We delete the Skill and all TeamObservations for this Skill from the Database
-                databaseManager.deleteSkill(ComponentDetailsForModuleManager.SKILL_NAME);
-                databaseManager.deleteTeamObservations(skillId);
+                ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
+                int skillId = 0;
+                for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
+                    if (allSkillsInDB.get(skillIndex).getComponentId() == componentId) {
+                        skillId = allSkillsInDB.get(skillIndex).getId();
+                        if (Objects.equals(allSkillsInDB.get(skillIndex).getTitle(), ComponentDetailsForModuleManager.SKILL_NAME)) {
+                            // We delete the Skill from the Database
+                            databaseManager.deleteSkill(skillId);
+
+                            // We delete the TeamObservations for the Skill to be deleted
+                            databaseManager.deleteTeamObservations(skillId);
+
+                            // We delete the SkillScore for the Skill to be deleted
+                            databaseManager.deleteSkillScore(skillId);
+                        }
+                    }
+                }
                 Intent intentYesDelete = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
                 startActivity(intentYesDelete);
             }

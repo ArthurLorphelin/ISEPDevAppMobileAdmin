@@ -135,7 +135,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:cacheColorHint="@color/black">
+            android:cacheColorHint="@color/black"
+            android:layout_marginBottom="20dp">
         </ListView>
 
     </LinearLayout>

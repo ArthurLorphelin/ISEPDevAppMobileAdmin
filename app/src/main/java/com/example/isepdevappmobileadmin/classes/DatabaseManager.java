@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin21.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin22.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -145,6 +145,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "skillId int not null," +
                 "observation text)";
         db.execSQL(createTeamObservationTable);
+
+        // We create the Rating Table in the Database with an id, a name and a value
+        String createRatingTable = "create table Rating (" +
+                "id integer primary key autoincrement," +
+                "name text not null," +
+                "value int not null)";
+        db.execSQL(createRatingTable);
+
+        // We create the SkillScore Table with an id, a ratingId, a skillId, a skillObservation and a componentScoreId
+        String createSkillScoreTable = "create table SkillScore (" +
+                "id integer primary key autoincrement," +
+                "ratingId int," +
+                "skillId int not null," +
+                "skillObservation text," +
+                "componentScoreId int not null)";
+        db.execSQL(createSkillScoreTable);
 
 
         /*
@@ -275,6 +291,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 // We insert the Students in the Database (one Student per Team)
                 int teamId = ((groupIndex - 1) * NUMBER_OF_TEAMS_PER_GROUP) + teamIndex;
+                int studentId = teamId;
                 String studentEmail = "student" + teamId + "@isep.fr";
                 String studentPassword = "student" + teamId;
                 String firstName = "Student";
@@ -294,10 +311,29 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 // We insert the ComponentScores in the Database
                 for (int componentIndex = 1; componentIndex < NUMBER_OF_INITIAL_COMPONENTS + 1; componentIndex++) {
                     String insertComponentScoreInDB = "INSERT INTO ComponentScore (componentId, studentId) " +
-                            "VALUES (" + componentIndex + ", " + teamId + ")";
+                            "VALUES (" + componentIndex + ", " + studentId + ")";
                     db.execSQL(insertComponentScoreInDB);
+
+                    // We insert the SkillScore in the Database
+                    String insertSkillScoreInDB = "INSERT INTO SkillSCore (skillId, componentScoreId) " +
+                            "VALUES (" + componentIndex + ", " + componentIndex + ")";
+                    db.execSQL(insertSkillScoreInDB);
                 }
             }
+
+            // We insert the Rating in the Database
+            String insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Non Acquis', 0)";
+            db.execSQL(insertRatingSql);
+            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Loin', 7)";
+            db.execSQL(insertRatingSql);
+            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Proche', 10)";
+            db.execSQL(insertRatingSql);
+            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Très proche', 13)";
+            db.execSQL(insertRatingSql);
+            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Attendu', 16)";
+            db.execSQL(insertRatingSql);
+            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Au-dela', 20)";
+            db.execSQL(insertRatingSql);
         }
     }
 
@@ -618,8 +654,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(sql);
     }
 
-    public void deleteComponent(String name) {
-        String sql = "DELETE FROM Component WHERE name = '" + name + "'";
+    public void deleteComponent(int id) {
+        String sql = "DELETE FROM Component WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
     }
 
@@ -629,8 +665,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(sql);
     }
 
-    public void deleteSkill(String title) {
-        String sql = "DELETE FROM Skill WHERE title = '" + title + "'";
+    public void deleteSkill(int id) {
+        String sql = "DELETE FROM Skill WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
     }
 
@@ -676,5 +712,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return teamObservations;
+    }
+
+    public void insertComponentScore(int componentId, int studentId) {
+        String sql = "INSERT INTO ComponentScore (componentId, studentId) " +
+                "VALUES (" + componentId + ", " + studentId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void deleteComponentScore(int componentId) {
+        String sql = "DELETE FROM ComponentScore WHERE componentId = " + componentId;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void insertSkillScore(int skillId, int componentScoreId) {
+        String sql = "INSERT INTO SkillScore (skillId, componentScoreId) " +
+                "VALUES (" + skillId + ", " + componentScoreId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void deleteSkillScore(int skillId) {
+        String sql = "DELETE FROM SkillScore WHERE skillId = " + skillId;
+        this.getWritableDatabase().execSQL(sql);
     }
 }
