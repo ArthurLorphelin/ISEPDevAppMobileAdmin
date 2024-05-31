@@ -649,6 +649,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(sql);
     }
 
+    public void updateTeamObservation(int id, String observation) {
+        String sql = "UPDATE TeamObservation SET observation = '" + observation + "' WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
     public ArrayList<TeamObservation> getAllTeamObservations() {
         ArrayList<TeamObservation> teamObservations = new ArrayList<>();
         String sql = "select * from TeamObservation";
