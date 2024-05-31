@@ -47,6 +47,18 @@
         android:orientation="vertical"
         android:background="@color/white">
 
+        <Button
+            android:id="@+id/go_to_all_groups_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to Groups Page"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#8B0000"
+            android:textColor="@color/white">
+        </Button>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

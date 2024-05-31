@@ -31,6 +31,16 @@ public class ModuleManagerActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.module_manager);
 
+        // We create the All Groups Page Button Activity
+        Button allGroupsButton = findViewById(R.id.go_to_all_groups_list_button);
+        allGroupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAllGroups = new Intent(getApplicationContext(), AllGroupsPage.class);
+                startActivity(intentAllGroups);
+            }
+        });
+
         // We display the list of all Components
         databaseManager = new DatabaseManager(getApplicationContext());
         ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
