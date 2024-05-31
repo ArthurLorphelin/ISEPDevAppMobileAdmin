@@ -14,7 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobileadmin.R;
+import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class DeleteSkill extends AppCompatActivity {
 
@@ -54,7 +58,17 @@ public class DeleteSkill extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
+                ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
+                int skillId = 0;
+                for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
+                    if (Objects.equals(allSkillsInDB.get(skillIndex).getTitle(), ComponentDetailsForModuleManager.SKILL_NAME)){
+                        skillId = allSkillsInDB.get(skillIndex).getId();
+                    }
+                }
+
+                // We delete the Skill and all TeamObservations for this Skill from the Database
                 databaseManager.deleteSkill(ComponentDetailsForModuleManager.SKILL_NAME);
+                databaseManager.deleteTeamObservations(skillId);
                 Intent intentYesDelete = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
                 startActivity(intentYesDelete);
             }

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
+import com.example.isepdevappmobileadmin.classes.DBtable.Team;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
@@ -66,7 +67,23 @@ public class AddSkill extends AppCompatActivity {
                         componentId = allComponentsInDB.get(componentIndex).getId();
                     }
                 }
+                // We insert the new Skill in the Database
                 databaseManager.insertSkill(skillTitle, skillDescription, skillLinkToViewDetails, componentId);
+
+                ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
+                int skillId = 0;
+                for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
+                    if (Objects.equals(allSkillsInDB.get(skillIndex).getTitle(), skillTitle)) {
+                        skillId = allSkillsInDB.get(skillIndex).getId();
+                    }
+                }
+
+                // We insert all TeamObservations for the Team
+                ArrayList<Team> allTeamsInDB = databaseManager.getAllTeams();
+                for (int teamIndex = 0; teamIndex < allTeamsInDB.size(); teamIndex++) {
+                    databaseManager.insertTeamObservation(skillId, teamIndex);
+                }
+
                 Intent intentAddSkill = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
                 startActivity(intentAddSkill);
             }

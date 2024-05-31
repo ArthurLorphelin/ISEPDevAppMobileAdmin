@@ -16,13 +16,14 @@ import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.Team;
+import com.example.isepdevappmobileadmin.classes.DBtable.TeamObservation;
 import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin20.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin21.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -136,6 +137,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "linkToViewDetails text," +
                 "componentId int not null)";
         db.execSQL(createSkillTable);
+
+        // We create the TeamObservation Table in the Database with an id, a teamId, a skillId, and an observation
+        String createTeamObservationTable = "create table TeamObservation (" +
+                "id integer primary key autoincrement," +
+                "teamId int not null," +
+                "skillId int not null," +
+                "observation text)";
+        db.execSQL(createTeamObservationTable);
 
 
         /*
@@ -274,6 +283,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String insertStudentInDB = "INSERT INTO Student (email, password, firstName, lastName, studentNumber, groupId, teamId) " +
                         "VALUES ('" + studentEmail + "', '" + studentPassword + "', '" + firstName + "', '" + lastName + "', " + studentNumber + ", " + groupIndex + ", " + teamId + ")";
                 db.execSQL(insertStudentInDB);
+
+                // We insert the TeamObservations in the Database(one TeamObservation per Skill)
+                for (int skillIndex = 1; skillIndex < 8; skillIndex++) {
+                    String insertTeamObservationInDB = "INSERT INTO TeamObservation (teamId, skillId) " +
+                            "VALUES (" + teamId + ", " + skillIndex + ")";
+                    db.execSQL(insertTeamObservationInDB);
+                }
 
                 // We insert the ComponentScores in the Database
                 for (int componentIndex = 1; componentIndex < NUMBER_OF_INITIAL_COMPONENTS + 1; componentIndex++) {
@@ -621,5 +637,39 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void updateSkill(int id, String title, String description, String linkToViewDetails) {
         String sql = "UPDATE Skill SET title = '" + title + "', description = '" + description + "', linkToViewDetails = '" + linkToViewDetails + "' WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
+    }
+    public void deleteTeamObservations(int skillId) {
+        String sql = "DELETE FROM TeamObservation WHERE skillId = " + skillId;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void insertTeamObservation(int skillId, int teamId) {
+        String sql = "INSERT INTO TeamObservation (skillId, teamId) " +
+                "VALUES (" + skillId + ", " + teamId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public ArrayList<TeamObservation> getAllTeamObservations() {
+        ArrayList<TeamObservation> teamObservations = new ArrayList<>();
+        String sql = "select * from TeamObservation";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int skillId = cursor.getInt(cursor.getColumnIndex("skillId"));
+                @SuppressLint("Range") int teamId = cursor.getInt(cursor.getColumnIndex("teamId"));
+                @SuppressLint("Range") String observation = cursor.getString(cursor.getColumnIndex("observation"));
+
+                TeamObservation teamObservation = new TeamObservation();
+                teamObservation.setId(id);
+                teamObservation.setSkillId(skillId);
+                teamObservation.setTeamId(teamId);
+                teamObservation.setObservation(observation);
+
+                teamObservations.add(teamObservation);
+                cursor.moveToNext();
+            }
+        }
+        return teamObservations;
     }
 }
