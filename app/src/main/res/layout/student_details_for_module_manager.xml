@@ -55,7 +55,7 @@
         android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:background="@color/white"
-        android:layout_marginStart="5dp">
+        android:layout_marginStart="15dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -63,30 +63,14 @@
             android:text="Summary : "
             android:textSize="30sp"
             android:textColor="@color/black"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:layout_marginTop="10dp">
         </TextView>
 
         <ListView
             android:id="@+id/summary_list_view_in_student_details"
             android:layout_width= "match_parent"
             android:layout_height="wrap_content">
-        </ListView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Details for each Component : "
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp">
-        </TextView>
-
-        <ListView
-            android:id="@+id/list_view_of_all_components_in_student_details_page_for_module_manager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
         </ListView>
 
     </LinearLayout>

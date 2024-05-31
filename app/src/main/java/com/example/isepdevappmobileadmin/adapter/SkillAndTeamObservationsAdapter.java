@@ -10,12 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
-import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.TeamObservation;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
@@ -40,12 +38,12 @@ public class SkillAndTeamObservationsAdapter extends ArrayAdapter<TeamObservatio
     @SuppressLint("SetTextI18n")
     private View initView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_multiple_items, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_two_items, parent, false);
         }
 
         // We display in the first part : the name of the Skill
-        TextView textViewFirstItem = convertView.findViewById(R.id.list_view_first_item_text_view);
-        TextView textViewSecondItem = convertView.findViewById(R.id.list_view_second_item_text_view);
+        TextView textViewFirstItem = convertView.findViewById(R.id.list_view_two_items_first_item);
+        TextView textViewSecondItem = convertView.findViewById(R.id.list_view_two_items_second_item);
         TeamObservation currentTeamObservation = getItem(position);
         if (currentTeamObservation != null) {
             ArrayList<Skill> allSkillInDB = databaseManager.getAllSkills();

@@ -3,6 +3,7 @@ package com.example.isepdevappmobileadmin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -11,7 +12,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.R;
-import com.example.isepdevappmobileadmin.adapter.ComponentListViewAdapter;
 import com.example.isepdevappmobileadmin.adapter.SummaryStudentAdapter;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
@@ -20,6 +20,7 @@ import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import java.util.ArrayList;
 
 public class StudentDetailsForModuleManager extends AppCompatActivity {
+    public static ComponentScore COMPONENT_SCORE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +81,14 @@ public class StudentDetailsForModuleManager extends AppCompatActivity {
         SummaryStudentAdapter summaryStudentAdapter = new SummaryStudentAdapter(getApplicationContext(), componentScoresForThisStudent);
         listViewSummary.setAdapter(summaryStudentAdapter);
 
-        // We display the SkillScore for each Skill for each Component
-        ListView componentListView = findViewById(R.id.list_view_of_all_components_in_student_details_page_for_module_manager);
-        ComponentListViewAdapter componentListViewAdapter = new ComponentListViewAdapter(getApplicationContext(), componentScoresForThisStudent);
-        componentListView.setAdapter(componentListViewAdapter);
+        // We create the activity for a selected item
+        listViewSummary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                COMPONENT_SCORE = (ComponentScore) parent.getItemAtPosition(position);
+                Intent intentComponentScoreDetails = new Intent(getApplicationContext(), ComponentScoreDetails.class);
+                startActivity(intentComponentScoreDetails);
+            }
+        });
     }
 }

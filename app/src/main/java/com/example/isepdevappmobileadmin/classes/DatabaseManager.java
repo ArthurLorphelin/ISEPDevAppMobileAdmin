@@ -13,7 +13,9 @@ import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
+import com.example.isepdevappmobileadmin.classes.DBtable.Rating;
 import com.example.isepdevappmobileadmin.classes.DBtable.Skill;
+import com.example.isepdevappmobileadmin.classes.DBtable.SkillScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.Team;
 import com.example.isepdevappmobileadmin.classes.DBtable.TeamObservation;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin22.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin25.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -314,10 +316,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
                             "VALUES (" + componentIndex + ", " + studentId + ")";
                     db.execSQL(insertComponentScoreInDB);
 
-                    // We insert the SkillScore in the Database
+                    // We insert the SkillScores
                     String insertSkillScoreInDB = "INSERT INTO SkillSCore (skillId, componentScoreId) " +
                             "VALUES (" + componentIndex + ", " + componentIndex + ")";
                     db.execSQL(insertSkillScoreInDB);
+
+
                 }
             }
 
@@ -734,5 +738,53 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void deleteSkillScore(int skillId) {
         String sql = "DELETE FROM SkillScore WHERE skillId = " + skillId;
         this.getWritableDatabase().execSQL(sql);
+    }
+
+    public ArrayList<SkillScore> getAllSkillScores() {
+        ArrayList<SkillScore> skillScores = new ArrayList<>();
+        String sql = "select * from SkillScore";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int ratingId = cursor.getInt(cursor.getColumnIndex("ratingId"));
+                @SuppressLint("Range") int skillId = cursor.getInt(cursor.getColumnIndex("skillId"));
+                @SuppressLint("Range") String observation = cursor.getString(cursor.getColumnIndex("skillObservation"));
+                @SuppressLint("Range") int componentScoreId = cursor.getInt(cursor.getColumnIndex("componentScoreId"));
+
+                SkillScore skillScore = new SkillScore();
+                skillScore.setId(id);
+                skillScore.setRatingId(ratingId);
+                skillScore.setSkillId(skillId);
+                skillScore.setSkillObservation(observation);
+                skillScore.setComponentScoreId(componentScoreId);
+
+                skillScores.add(skillScore);
+                cursor.moveToNext();
+            }
+        }
+        return skillScores;
+    }
+
+    public ArrayList<Rating> getAllRatings() {
+        ArrayList<Rating> ratings = new ArrayList<>();
+        String sql = "select * from Rating";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int value = cursor.getInt(cursor.getColumnIndex("value"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+
+                Rating rating = new Rating();
+                rating.setId(id);
+                rating.setValue(value);
+                rating.setName(name);
+
+                ratings.add(rating);
+                cursor.moveToNext();
+            }
+        }
+        return ratings;
     }
 }

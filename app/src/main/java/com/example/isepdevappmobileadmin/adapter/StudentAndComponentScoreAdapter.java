@@ -39,11 +39,11 @@ public class StudentAndComponentScoreAdapter extends ArrayAdapter<Student> {
     @SuppressLint("SetTextI18n")
     private View initView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_multiple_items, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_two_items, parent, false);
         }
 
         // We display in the first part : the name of the Student
-        TextView textViewFirstItem = convertView.findViewById(R.id.list_view_first_item_text_view);
+        TextView textViewFirstItem = convertView.findViewById(R.id.list_view_two_items_first_item);
         Student currentStudent = getItem(position);
         if (currentStudent != null) {
             textViewFirstItem.setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
@@ -59,7 +59,7 @@ public class StudentAndComponentScoreAdapter extends ArrayAdapter<Student> {
         }
 
         // We display the second part : the ComponentScore of the Student
-        TextView textViewSecondItem = convertView.findViewById(R.id.list_view_second_item_text_view);
+        TextView textViewSecondItem = convertView.findViewById(R.id.list_view_two_items_second_item);
         ArrayList<ComponentScore> allComponentScoresInDb = databaseManager.getAllComponentScores();
         for (int componentScoreIndex = 0; componentScoreIndex < allComponentScoresInDb.size(); componentScoreIndex++) {
             assert currentStudent != null;
