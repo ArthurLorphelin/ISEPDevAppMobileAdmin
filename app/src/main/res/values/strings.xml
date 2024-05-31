@@ -39,6 +39,7 @@
     <string name="skill_description">Skill description ...</string>
     <string name="skill_title">Skill title ...</string>
     <string name="skill_information">Skill Information</string>
+    <string name="modify_skill">Modify Skill</string>
     <string-array name="admin_role">
         <item>Module Manager</item>
         <item>Component Manager</item>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DeleteSkill"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="Delete Skill"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_module_manager_in_delete_skill_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Are you sure you want to delete the Skill ?"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginTop="90dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:id="@+id/skill_name_text_view_in_delete_skill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="70dp"
+            android:gravity="center">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="80dp">
+
+            <Button
+                android:id="@+id/yes_button_delete_skill"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                app:backgroundTint="#8B0000"
+                android:text="Yes"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+            <Button
+                android:id="@+id/no_button_delete_skill"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                app:backgroundTint="#8B0000"
+                android:text="No"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

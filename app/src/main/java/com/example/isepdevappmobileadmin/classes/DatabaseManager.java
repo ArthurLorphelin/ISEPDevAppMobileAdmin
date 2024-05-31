@@ -612,4 +612,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "VALUES ('" + title + "', '" + description + "', '" + linkToViewDetails + "', " + componentId + ")";
         this.getWritableDatabase().execSQL(sql);
     }
+
+    public void deleteSkill(String title) {
+        String sql = "DELETE FROM Skill WHERE title = '" + title + "'";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateSkill(int id, String title, String description, String linkToViewDetails) {
+        String sql = "UPDATE Skill SET title = '" + title + "', description = '" + description + "', linkToViewDetails = '" + linkToViewDetails + "' WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
 }
