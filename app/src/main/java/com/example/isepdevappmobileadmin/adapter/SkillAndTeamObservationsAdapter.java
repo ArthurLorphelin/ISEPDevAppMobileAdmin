@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class SkillAndTeamObservationsAdapter extends ArrayAdapter<TeamObservation> {
     private ArrayList<TeamObservation> teamObservations;
     private DatabaseManager databaseManager;
-    //public static ArrayList<String> COMPONENT_NAME_AND_SKILL_TITLE_LIST;
 
     public SkillAndTeamObservationsAdapter(Context context, ArrayList<TeamObservation> teamObservations) {
         super(context, 0, teamObservations);
@@ -66,7 +65,6 @@ public class SkillAndTeamObservationsAdapter extends ArrayAdapter<TeamObservatio
                 }
             }
             String componentNameAndSkillTitle = componentName + " - " + skillTitle;
-            //COMPONENT_NAME_AND_SKILL_TITLE_LIST.add(componentNameAndSkillTitle);
             textViewFirstItem.setText(componentNameAndSkillTitle);
 
             // We instantiate the second part : the Team Observation

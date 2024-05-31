@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.isepdevappmobileadmin.R;
+import com.example.isepdevappmobileadmin.adapter.ComponentListViewAdapter;
 import com.example.isepdevappmobileadmin.adapter.SummaryStudentAdapter;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
@@ -78,5 +79,10 @@ public class StudentDetailsForModuleManager extends AppCompatActivity {
         ListView listViewSummary = findViewById(R.id.summary_list_view_in_student_details);
         SummaryStudentAdapter summaryStudentAdapter = new SummaryStudentAdapter(getApplicationContext(), componentScoresForThisStudent);
         listViewSummary.setAdapter(summaryStudentAdapter);
+
+        // We display the SkillScore for each Skill for each Component
+        ListView componentListView = findViewById(R.id.list_view_of_all_components_in_student_details_page_for_module_manager);
+        ComponentListViewAdapter componentListViewAdapter = new ComponentListViewAdapter(getApplicationContext(), componentScoresForThisStudent);
+        componentListView.setAdapter(componentListViewAdapter);
     }
 }
