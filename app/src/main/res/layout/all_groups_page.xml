@@ -59,10 +59,22 @@
             android:textColor="@color/white">
         </Button>
 
+        <Button
+            android:id="@+id/go_to_all_students_list_button_from_all_groups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to Students Page"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#8B0000"
+            android:textColor="@color/white">
+        </Button>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/list_of_all_components"
+            android:text="List of all Groups"
             android:textColor="@color/black"
             android:background="@color/white"
             android:gravity="center"

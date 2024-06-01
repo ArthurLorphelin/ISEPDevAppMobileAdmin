@@ -41,7 +41,17 @@ public class ModuleManagerActivity extends AppCompatActivity {
             }
         });
 
-        // We display the list of all Components
+        // We create the activity when the user clicks on the All Students PAge
+        Button buttonAllStudents = findViewById(R.id.go_to_all_students_list_button);
+        buttonAllStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAllStudentsPage = new Intent(getApplicationContext(), AllStudentsPage.class);
+                startActivity(intentAllStudentsPage);
+            }
+        });
+
+                // We display the list of all Components
         databaseManager = new DatabaseManager(getApplicationContext());
         ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
         ArrayList<String> allComponentNames = new ArrayList<>();

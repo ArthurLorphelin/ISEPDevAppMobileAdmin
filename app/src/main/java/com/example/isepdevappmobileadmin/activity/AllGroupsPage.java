@@ -50,6 +50,16 @@ public class AllGroupsPage extends AppCompatActivity {
             }
         });
 
+        // We create the activity when the user clicks on the All Students PAge
+        Button buttonAllStudents = findViewById(R.id.go_to_all_students_list_button_from_all_groups);
+        buttonAllStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAllStudentsPage = new Intent(getApplicationContext(), AllStudentsPage.class);
+                startActivity(intentAllStudentsPage);
+            }
+        });
+
         // We display the list of all Groups
         DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
         ArrayList<Group> allGroupsInDB = databaseManager.getAllGroups();
