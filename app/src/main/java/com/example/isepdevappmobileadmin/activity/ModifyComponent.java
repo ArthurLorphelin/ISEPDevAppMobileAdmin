@@ -95,7 +95,13 @@ public class ModifyComponent extends AppCompatActivity {
         addComponentToDatabaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = editTextComponentName.getText().toString();
+                String name;
+                if (editTextComponentName.getText().toString().isEmpty()) {
+                    name = ModuleManagerActivity.COMPONENT_NAME;
+                } else {
+                    name = editTextComponentName.getText().toString();
+                }
+
                 ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
                 int componentId = 0;
                 for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {

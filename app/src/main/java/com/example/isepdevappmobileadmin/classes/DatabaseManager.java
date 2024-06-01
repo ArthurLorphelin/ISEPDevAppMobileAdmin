@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
 import com.example.isepdevappmobileadmin.classes.DBtable.AdminRole;
+import com.example.isepdevappmobileadmin.classes.DBtable.Client;
 import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentScore;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin28.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin29.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -163,6 +164,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "skillObservation text," +
                 "componentScoreId int not null)";
         db.execSQL(createSkillScoreTable);
+
+        // We create the Client Table with an id and a name
+        String createClientTable = "create table Client (" +
+                "id integer primary key autoincrement," +
+                "name text not null)";
+        db.execSQL(createClientTable);
 
 
         /*
@@ -787,5 +794,40 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return ratings;
+    }
+
+    public ArrayList<Client> getAllClients() {
+        ArrayList<Client> clients = new ArrayList<>();
+        String sql = "select * from Client";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+
+                Client client = new Client();
+                client.setId(id);
+                client.setName(name);
+
+                clients.add(client);
+                cursor.moveToNext();
+            }
+        }
+        return clients;
+    }
+
+    public void updateGroupWithClient(int id, int clientId) {
+        String sql = "UPDATE Groupe SET clientId = " + clientId + " WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateTutorWithGroup(int id, int groupId) {
+        String sql = "UPDATE Tutor SET groupId = " + groupId + " WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void insertClient(String name) {
+        String sql = "INSERT INTO Client (name) VALUES ('" + name + "')";
+        this.getWritableDatabase().execSQL(sql);
     }
 }

@@ -7,9 +7,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.adapter.StudentAndComponentScoreAdapter;
+import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
+import com.example.isepdevappmobileadmin.classes.DBtable.Client;
 import com.example.isepdevappmobileadmin.classes.DBtable.Group;
 import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DBtable.Team;
+import com.example.isepdevappmobileadmin.classes.DBtable.Tutor;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
@@ -68,11 +73,51 @@ public class GroupDetailsForModuleManager extends AppCompatActivity {
         DatabaseManager databaseManager = new DatabaseManager(this);
         ArrayList<Group> allGroupsInDB = databaseManager.getAllGroups();
         int groupId = 0;
+        int clientId = 0;
         for (int groupIndex = 0; groupIndex < allGroupsInDB.size(); groupIndex++) {
             if (Objects.equals(groupName, allGroupsInDB.get(groupIndex).getName())) {
                 groupId = allGroupsInDB.get(groupIndex).getId();
+                clientId = allGroupsInDB.get(groupIndex).getClientId();
             }
         }
+
+        // We display the Group Tutor name
+        TextView textViewGroupTutor = findViewById(R.id.group_tutor_name_in_group_details_text_view);
+        ArrayList<Tutor> allTutorsInDB = databaseManager.getAllTutors();
+        ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
+        int adminId = 0;
+        String tutorName = "";
+        for (int tutorIndex = 0; tutorIndex < allTutorsInDB.size(); tutorIndex++) {
+            if (allTutorsInDB.get(tutorIndex).getGroupId() == groupId) {
+                adminId = allTutorsInDB.get(tutorIndex).getAdminId();
+            }
+        }
+        if (adminId == 0) {
+            tutorName = " - ";
+        } else {
+            for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex ++) {
+                if (allAdminsInDB.get(adminIndex).getId() == adminId) {
+                    tutorName = allAdminsInDB.get(adminIndex).getFirstName() + " " + allAdminsInDB.get(adminIndex).getLastName();
+                }
+            }
+        }
+        textViewGroupTutor.setText(tutorName);
+
+        // We display the Client name
+        TextView textViewClientName = findViewById(R.id.client_name_in_group_details_text_view);
+        ArrayList<Client> allClientsInDB = databaseManager.getAllClients();
+        String clientName = "";
+        if (clientId != 0) {
+            for (int clientIndex = 0; clientIndex < allClientsInDB.size(); clientIndex++) {
+                if (allClientsInDB.get(clientIndex).getId() == clientId) {
+                    clientName = allClientsInDB.get(clientIndex).getName();
+                }
+            }
+        } else {
+            clientName = " - ";
+        }
+        textViewClientName.setText(clientName);
+
         // We get the Teams that are in the group
         ArrayList<Team> allTeamsInDB = databaseManager.getAllTeams();
         ArrayList<Team> teamsInSelectedGroup = new ArrayList<>();
@@ -119,6 +164,16 @@ public class GroupDetailsForModuleManager extends AppCompatActivity {
                 TEAM_NAME = parent.getItemAtPosition(position).toString().trim();
                 Intent intentTeamDetails = new Intent(getApplicationContext(), TeamDetailsForModuleManager.class);
                 startActivity(intentTeamDetails);
+            }
+        });
+
+        // We create the Activity when the user wants to modify the group info
+        Button buttonModifyGroupDetails = findViewById(R.id.modify_group_details_for_module_manager);
+        buttonModifyGroupDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentModifyGroup = new Intent(getApplicationContext(), ModifyGroup.class);
+                startActivity(intentModifyGroup);
             }
         });
     }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ModifyGroup"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="Modify Group"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_module_manager_in_modify_group_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/back_to_group_details_page_from_modify_group_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_previous_page">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group name : "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="90dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:id="@+id/group_name_in_modify_group_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group client"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group client"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+        </TextView>
+
+        <EditText
+            android:id="@+id/client_name_in_modify_group_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Client name"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textColorHint="#D3D3D3"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="textMultiLine">
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modify Group Tutor"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+        </TextView>
+
+        <Spinner
+            android:id="@+id/modify_group_tutor_spinner"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textAlignment="center">
+        </Spinner>
+
+        <Button
+            android:id="@+id/modify_group_to_database_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:backgroundTint="#8B0000"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="Modify Group"
+            android:textSize="18sp"
+            android:textColor="@color/white">
+        </Button>
+
+    </LinearLayout>
+
+</RelativeLayout>
