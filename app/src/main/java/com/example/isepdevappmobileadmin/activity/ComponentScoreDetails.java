@@ -21,6 +21,7 @@ import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import java.util.ArrayList;
 
 public class ComponentScoreDetails extends AppCompatActivity {
+    public static SkillScore SKILL_SCORE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class ComponentScoreDetails extends AppCompatActivity {
         listViewSkillScores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SKILL_SCORE = (SkillScore) parent.getItemAtPosition(position);
                 Intent intentSkillScoreDetails = new Intent(getApplicationContext(), SkillScoreDetailsForModuleManager.class);
                 startActivity(intentSkillScoreDetails);
             }

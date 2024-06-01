@@ -57,7 +57,8 @@ public class SummaryStudentAdapter extends ArrayAdapter<ComponentScore> {
 
         // We display the second part : the componentScore value
         assert currentComponentScore != null;
-        textViewSecondItem.setText(String.valueOf(currentComponentScore.getScore()));
+        String score = currentComponentScore.getScore() + "/20";
+        textViewSecondItem.setText(score);
 
         return convertView;
     }

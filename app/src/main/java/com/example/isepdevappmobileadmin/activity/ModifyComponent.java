@@ -74,6 +74,7 @@ public class ModifyComponent extends AppCompatActivity {
             }
         }
 
+        // We display all the Tutor names in the Spinner
         Spinner spinner = findViewById(R.id.modify_component_manager_spinner);
         ArrayAdapter<String> adapterSpinnerItems = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, componentManagersName);
         adapterSpinnerItems.setDropDownViewResource(R.layout.spinner_dropdown_item);

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin29.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin31.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -332,21 +332,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 }
             }
-
-            // We insert the Rating in the Database
-            String insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Non Acquis', 0)";
-            db.execSQL(insertRatingSql);
-            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Loin', 7)";
-            db.execSQL(insertRatingSql);
-            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Proche', 10)";
-            db.execSQL(insertRatingSql);
-            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Très proche', 13)";
-            db.execSQL(insertRatingSql);
-            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Attendu', 16)";
-            db.execSQL(insertRatingSql);
-            insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Au-dela', 20)";
-            db.execSQL(insertRatingSql);
         }
+
+        // We insert the Rating in the Database
+        String insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Non Acquis', 0)";
+        db.execSQL(insertRatingSql);
+        insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Loin', 7)";
+        db.execSQL(insertRatingSql);
+        insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Proche', 10)";
+        db.execSQL(insertRatingSql);
+        insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Très proche', 13)";
+        db.execSQL(insertRatingSql);
+        insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Attendu', 16)";
+        db.execSQL(insertRatingSql);
+        insertRatingSql = "INSERT INTO Rating (name, value) VALUES ('Au-dela', 20)";
+        db.execSQL(insertRatingSql);
     }
 
     @Override
@@ -828,6 +828,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertClient(String name) {
         String sql = "INSERT INTO Client (name) VALUES ('" + name + "')";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateSkillScoreWithRating(int id, String observation, int ratingId) {
+        String sql = "UPDATE SkillScore SET skillObservation = '" + observation + "', ratingId = " + ratingId + " WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateSkillScoreWithoutRating(int id, String observation) {
+        String sql = "UPDATE SkillScore SET skillObservation = '" + observation + "' WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public void updateComponentScoreTableWithScore(int id, int score) {
+        String sql = "UPDATE ComponentScore SET score = " + score + " WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
     }
 }

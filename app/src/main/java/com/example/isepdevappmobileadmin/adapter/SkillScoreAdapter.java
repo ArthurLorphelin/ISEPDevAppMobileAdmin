@@ -75,7 +75,6 @@ public class SkillScoreAdapter extends ArrayAdapter<SkillScore> {
                 }
             }
         }
-
         textViewSkillRating.setText(skillRating);
 
         return convertView;
