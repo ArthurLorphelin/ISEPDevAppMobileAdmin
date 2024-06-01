@@ -1,20 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ModifyStudent"
+    tools:context=".activity.SkillScoreDetailsForModuleManager"
     android:background="@color/white">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Modify Student"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:textColor="@color/black">
-    </TextView>
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="Modify Student"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_modify_student_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/back_to_student_details_page_from_modify_student"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_previous_page">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Name : "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="90dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:id="@+id/student_name_in_student_details_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arthur Lorphelin"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Team Name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+        </TextView>
+
+        <Spinner
+            android:id="@+id/modify_team_name_spinner"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textAlignment="center">
+        </Spinner>
+
+        <Button
+            android:id="@+id/modify_skill_score_to_database_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:backgroundTint="#8B0000"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="Modify Student"
+            android:textSize="18sp"
+            android:textColor="@color/white">
+        </Button>
+
+    </LinearLayout>
+
+</RelativeLayout>

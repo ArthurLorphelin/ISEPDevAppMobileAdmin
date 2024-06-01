@@ -21,6 +21,8 @@ import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 import java.util.ArrayList;
 
 public class StudentDetails extends AppCompatActivity {
+    public static String GROUP_NAME;
+    public static String TEAM_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class StudentDetails extends AppCompatActivity {
                 groupName = allGroupsInDB.get(groupIndex).getName();
             }
         }
+        GROUP_NAME = groupName;
         textViewGroupName.setText(groupName);
 
         // We display the Team Name
@@ -95,6 +98,7 @@ public class StudentDetails extends AppCompatActivity {
                 teamName = allTeamsInDB.get(teamIndex).getName();
             }
         }
+        TEAM_NAME = teamName;
         textViewTeamName.setText(teamName);
 
         // We create the Activity when the users clicks the Modify Button

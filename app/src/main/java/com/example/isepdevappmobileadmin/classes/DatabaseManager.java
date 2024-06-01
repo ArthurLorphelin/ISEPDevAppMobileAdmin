@@ -845,4 +845,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql = "UPDATE ComponentScore SET score = " + score + " WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
     }
+
+    public void updateStudentWithGroupAndTeam(int id, int groupId, int teamId) {
+        String sql = "UPDATE Student SET groupId = " + groupId + ", teamId = " + teamId + " WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
 }
