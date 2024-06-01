@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DeleteComponent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="Log out"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Are you sure you want to log out ?"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginTop="140dp"
+            android:gravity="center">
+        </TextView>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="80dp">
+
+            <Button
+                android:id="@+id/yes_button_log_out"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                app:backgroundTint="#8B0000"
+                android:text="Yes"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+            <Button
+                android:id="@+id/no_button_log_out"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                app:backgroundTint="#8B0000"
+                android:text="No"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

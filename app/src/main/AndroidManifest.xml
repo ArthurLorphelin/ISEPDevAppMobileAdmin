@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activity.LogOut"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyProfile"
+            android:exported="false" />
+        <activity
             android:name=".activity.ModifyStudent"
             android:exported="false" />
         <activity
