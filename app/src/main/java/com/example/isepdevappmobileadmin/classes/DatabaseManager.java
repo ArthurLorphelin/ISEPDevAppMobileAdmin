@@ -850,4 +850,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql = "UPDATE Student SET groupId = " + groupId + ", teamId = " + teamId + " WHERE id = " + id;
         this.getWritableDatabase().execSQL(sql);
     }
+
+    public void updateAdminProfile(int id, String firstName, String lastName, String email, String password) {
+        String sql = "UPDATE Admin SET firstName = '" + firstName + "', lastName = '" + lastName +
+                "', email = '" + email + "', password = '" + password + "' WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
 }

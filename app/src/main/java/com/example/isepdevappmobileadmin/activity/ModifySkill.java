@@ -28,7 +28,7 @@ public class ModifySkill extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.modify_skill);
 
-        /// We set the previous Page Button Activity
+        // We set the previous Page Button Activity
         ImageButton previousPageImageButton = findViewById(R.id.back_to_module_manager_page_from_modify_skill_page);
         previousPageImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
