@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin25.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin28.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -317,8 +317,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     db.execSQL(insertComponentScoreInDB);
 
                     // We insert the SkillScores
+                    int componentScoreId = ((studentId-1) * NUMBER_OF_INITIAL_COMPONENTS) + componentIndex;
                     String insertSkillScoreInDB = "INSERT INTO SkillSCore (skillId, componentScoreId) " +
-                            "VALUES (" + componentIndex + ", " + componentIndex + ")";
+                            "VALUES (" + componentIndex + ", " + componentScoreId + ")";
                     db.execSQL(insertSkillScoreInDB);
 
 
