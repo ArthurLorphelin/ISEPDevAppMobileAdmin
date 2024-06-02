@@ -19,6 +19,7 @@ import com.example.isepdevappmobileadmin.classes.DBtable.SkillScore;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ComponentScoreDetails extends AppCompatActivity {
     public static SkillScore SKILL_SCORE;
@@ -31,7 +32,13 @@ public class ComponentScoreDetails extends AppCompatActivity {
 
         // We display the Student Name at the top
         ListView listViewComponentName = findViewById(R.id.component_name_for_module_manager_in_skill_scores_list);
-        ComponentScore currentComponentScore = StudentDetailsForModuleManager.COMPONENT_SCORE;
+        ComponentScore currentComponentScore = new ComponentScore();
+        if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Module Manager")) {
+            currentComponentScore = StudentDetailsForModuleManager.COMPONENT_SCORE;
+        } else if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Tutor")) {
+            currentComponentScore = StudentDetailsForTutor.COMPONENT_SCORE;
+        }
+
 
         // We get the name of the Component
         DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
@@ -52,8 +59,14 @@ public class ComponentScoreDetails extends AppCompatActivity {
         imageButtonPreviousPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPreviousPage = new Intent(getApplicationContext(), StudentDetailsForModuleManager.class);
-                startActivity(intentPreviousPage);
+                if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Module Manager")) {
+                    Intent intentPreviousPage = new Intent(getApplicationContext(), StudentDetailsForModuleManager.class);
+                    startActivity(intentPreviousPage);
+                } else if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Tutor")) {
+                    Intent intentPreviousPage = new Intent(getApplicationContext(), StudentDetailsForTutor.class);
+                    startActivity(intentPreviousPage);
+                }
+
             }
         });
 
