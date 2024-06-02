@@ -5,18 +5,119 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".activity.TutorActivity">
+    tools:context=".activity.AllGroupsPage"
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="@string/menu"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_tutor_in_groups_list"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tutor"
-        android:textColor="@color/black"
-        android:background="@color/white"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:layout_centerInParent="true">
-    </TextView>
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp">
+
+            <TextView
+                android:id="@+id/group_name_in_tutor_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Group Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold">
+            </TextView>
+
+            <TextView
+                android:id="@+id/component_name_in_tutor_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Component Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold">
+            </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="List of all Teams"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:textStyle="bold">
+        </TextView>
+
+        <EditText
+            android:id="@+id/search_bar_teams_for_tutor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/search"
+            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp">
+        </EditText>
+
+        <ListView
+            android:id="@+id/list_of_teams_for_tutor_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="@color/black"
+            android:layout_marginStart="15dp">
+        </ListView>
+
+    </LinearLayout>
 
 </RelativeLayout>
