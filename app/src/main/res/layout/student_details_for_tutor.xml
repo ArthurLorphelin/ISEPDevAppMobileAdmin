@@ -15,7 +15,7 @@
         android:background="#D3D3D3">
 
         <ListView
-            android:id="@+id/student_name_for_module_manager_in_students_scores_list"
+            android:id="@+id/student_name_for_tutor_in_students_scores_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
@@ -23,7 +23,7 @@
         </ListView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_student_scores_list_with_skill_observations"
+            android:id="@+id/profile_image_button_for_tutor_in_student_scores_list_with_skill_observations"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -37,7 +37,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_team_details_page_from_students_details_page"
+            android:id="@+id/back_to_team_details_page_from_students_details_page_for_tutor"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -81,7 +81,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/student_name_in_student_details_text_view"
+                android:id="@+id/student_name_in_student_details_text_view_for_tutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Arthur Lorphelin"
@@ -105,7 +105,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/student_number_in_student_details_text_view"
+                android:id="@+id/student_number_in_student_details_text_view_for_tutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10448"
@@ -129,7 +129,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/student_email_in_student_details_text_view"
+                android:id="@+id/student_email_in_student_details_text_view_for_tutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="arlo10448@isep.eleve.fr"
@@ -150,7 +150,7 @@
         </TextView>
 
         <ListView
-            android:id="@+id/summary_list_view_in_student_details"
+            android:id="@+id/summary_list_view_in_student_details_for_tutor"
             android:layout_width= "match_parent"
             android:layout_height="wrap_content">
         </ListView>
