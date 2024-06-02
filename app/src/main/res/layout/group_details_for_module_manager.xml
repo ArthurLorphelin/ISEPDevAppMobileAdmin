@@ -156,10 +156,22 @@
         <ListView
             android:id="@+id/list_of_teams_in_selected_group_for_module_manager_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:cacheColorHint="@color/black">
         </ListView>
+
+        <Button
+            android:id="@+id/send_notifications_for_module_manager"
+            android:text="Send Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            app:backgroundTint="#8B0000"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center">
+        </Button>
 
     </LinearLayout>
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "23742700369",
+    "project_id": "isepdevappmobile",
+    "storage_bucket": "isepdevappmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23742700369:android:8d2e6d1f1179966d8c5170",
+        "android_client_info": {
+          "package_name": "com.example.isepdevappmobileadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmrmQryZKSKVt_rEubORFCTzkpv40lAEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

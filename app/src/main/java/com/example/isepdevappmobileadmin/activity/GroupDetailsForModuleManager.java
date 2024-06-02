@@ -1,6 +1,16 @@
 package com.example.isepdevappmobileadmin.activity;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +25,9 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,6 +47,7 @@ import java.util.Objects;
 
 public class GroupDetailsForModuleManager extends AppCompatActivity {
     public static String TEAM_NAME;
+    private String adminName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +116,13 @@ public class GroupDetailsForModuleManager extends AppCompatActivity {
             }
         }
         textViewGroupTutor.setText(tutorName);
+
+        // We get the Admin First and Last Name;
+        for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex ++) {
+            if (allAdminsInDB.get(adminIndex).getId() == SignIn.ADMIN_ID) {
+                adminName = allAdminsInDB.get(adminIndex).getFirstName() + " " + allAdminsInDB.get(adminIndex).getLastName();
+            }
+        }
 
         // We display the Client name
         TextView textViewClientName = findViewById(R.id.client_name_in_group_details_text_view);
@@ -176,5 +197,63 @@ public class GroupDetailsForModuleManager extends AppCompatActivity {
                 startActivity(intentModifyGroup);
             }
         });
+
+        // We create the Activity when the Module Manager wants to send a Notification to the Team
+        Button buttonSendNotification = findViewById(R.id.send_notifications_for_module_manager);
+
+        // We have to ask for permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(GroupDetailsForModuleManager.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(GroupDetailsForModuleManager.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+        buttonSendNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeNotification(adminName, groupName);
+            }
+        });
+    }
+
+    public void makeNotification(String adminName, String groupName) {
+        String notificationText = adminName + "(Module Manager) has updated the scores and observations for Group : " + groupName;
+        String channelId = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
+
+        // We instantiate the what the Notification is going to send and how it will be sent
+        builder.setSmallIcon(R.drawable.ic_notifications);
+        builder.setContentTitle("Score and Observations updated");
+        builder.setContentText(notificationText);
+        builder.setAutoCancel(true);
+        builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // We create the Intent for the notification
+        Intent intentNotification = new Intent(getApplicationContext(), Notification.class);
+        intentNotification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intentNotification.putExtra("data", notificationText);
+
+        int requestCode = 0;
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), requestCode, intentNotification, PendingIntent.FLAG_MUTABLE);
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // We create a Notification Channel
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelId);
+            if (notificationChannel == null) {
+                // If the Notification Channel is null, we instantiate it with new values
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(channelId, "Some description", importance);
+                notificationChannel.setLightColor(Color.GREEN);
+                notificationChannel.enableVibration(true);
+
+                // We create the Notification
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+
+        notificationManager.notify(0, builder.build());
     }
 }
