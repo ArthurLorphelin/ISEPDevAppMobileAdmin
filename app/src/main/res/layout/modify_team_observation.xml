@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddComponent"
+    tools:context=".activity.ModifyTeamObservation"
     android:background="@color/white">
 
     <RelativeLayout
@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="@string/add_component"
+            android:text="Modify Observation"
             android:textSize="30sp"
             android:gravity="center"
             android:textColor="@color/black">
         </TextView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_add_component_page"
+            android:id="@+id/profile_image_button_for_module_manager_in_modify_team_observation_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -38,7 +38,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_module_manager_page_from_add_component_page"
+            android:id="@+id/back_to_team_details_page_from_modify_team_observation_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -57,57 +57,80 @@
         android:orientation="vertical"
         android:background="@color/white">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Component Information"
+            android:text="Skill title :"
             android:textColor="@color/black"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:layout_marginTop="100sp">
+            android:textSize="25sp"
+            android:layout_marginTop="90dp"
+            android:gravity="center">
+        </TextView>
 
+        <TextView
+            android:id="@+id/skill_title_in_modify_team_observation_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Skill title"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Team Name :"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:id="@+id/team_name_in_modify_team_observation_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Team name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Observation : "
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
         </TextView>
 
         <EditText
-            android:id="@+id/component_name_in_add_component_page"
+            android:id="@+id/observation_in_modify_team_observation_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/component_name"
+            android:hint="Observation ..."
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="#D3D3D3"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:inputType="textMultiLine">
         </EditText>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_component_manager"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
-        </TextView>
-
-        <Spinner
-            android:id="@+id/add_component_manager_spinner"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:textAlignment="center">
-        </Spinner>
-
         <Button
-            android:id="@+id/add_component_to_database_button"
+            android:id="@+id/modify_team_observation_to_database_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:backgroundTint="#8B0000"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:text="@string/add_component"
+            android:text="Modify Observation"
             android:textSize="18sp"
             android:textColor="@color/white">
         </Button>

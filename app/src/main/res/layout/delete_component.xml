@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddComponent"
+    tools:context=".activity.DeleteComponent"
     android:background="@color/white">
 
     <RelativeLayout
@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="@string/add_component"
+            android:text="Delete Component"
             android:textSize="30sp"
             android:gravity="center"
             android:textColor="@color/black">
         </TextView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_add_component_page"
+            android:id="@+id/profile_image_button_for_module_manager_in_delete_component_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -37,17 +37,6 @@
             android:visibility="visible">
         </ImageButton>
 
-        <ImageButton
-            android:id="@+id/back_to_module_manager_page_from_add_component_page"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="35dp"
-            android:visibility="visible"
-            android:background="@drawable/ic_previous_page">
-        </ImageButton>
-
     </RelativeLayout>
 
     <LinearLayout
@@ -57,60 +46,57 @@
         android:orientation="vertical"
         android:background="@color/white">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Component Information"
+            android:text="Are you sure you want to delete the Component ?"
             android:textColor="@color/black"
-            android:gravity="center"
             android:textSize="30sp"
-            android:layout_marginTop="100sp">
-
-        </TextView>
-
-        <EditText
-            android:id="@+id/component_name_in_add_component_page"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/component_name"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:textColorHint="#D3D3D3"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:inputType="textMultiLine">
-        </EditText>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_component_manager"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="90dp"
             android:gravity="center">
         </TextView>
 
-        <Spinner
-            android:id="@+id/add_component_manager_spinner"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:textAlignment="center">
-        </Spinner>
+        <TextView
+            android:id="@+id/component_name_text_view_in_delete_components"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="70dp"
+            android:gravity="center">
+        </TextView>
 
-        <Button
-            android:id="@+id/add_component_to_database_button"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:backgroundTint="#8B0000"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:text="@string/add_component"
-            android:textSize="18sp"
-            android:textColor="@color/white">
-        </Button>
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="80dp">
+
+            <Button
+                android:id="@+id/yes_button_delete_component"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                app:backgroundTint="#8B0000"
+                android:text="Yes"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+            <Button
+                android:id="@+id/no_button_delete_component"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                app:backgroundTint="#8B0000"
+                android:text="No"
+                android:textSize="20sp"
+                android:textColor="@color/white">
+            </Button>
+
+        </LinearLayout>
 
     </LinearLayout>
 

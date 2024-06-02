@@ -21,14 +21,12 @@ import com.example.isepdevappmobileadmin.R;
 import com.example.isepdevappmobileadmin.classes.DBtable.Admin;
 import com.example.isepdevappmobileadmin.classes.DBtable.Component;
 import com.example.isepdevappmobileadmin.classes.DBtable.ComponentManager;
-import com.example.isepdevappmobileadmin.classes.DBtable.ModuleManager;
-import com.example.isepdevappmobileadmin.classes.DBtable.Student;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddComponent extends AppCompatActivity {
+public class ModifyComponent extends AppCompatActivity {
     private DatabaseManager databaseManager;
     private String chosenComponentManagerName;
 
@@ -36,20 +34,20 @@ public class AddComponent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.add_component);
+        setContentView(R.layout.modify_component);
 
         // We set the previous Page Button Activity
-        ImageButton previousPageImageButton = findViewById(R.id.back_to_module_manager_page_from_add_component_page);
+        ImageButton previousPageImageButton = findViewById(R.id.back_to_module_manager_page_from_modify_component_page);
         previousPageImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPreviousPage = new Intent(getApplicationContext(), ModuleManagerActivity.class);
+                Intent intentPreviousPage = new Intent(getApplicationContext(), ComponentDetailsForModuleManager.class);
                 startActivity(intentPreviousPage);
             }
         });
 
         // We set the profile Page Activity
-        ImageButton profilePageImageButton = findViewById(R.id.profile_image_button_for_module_manager_in_add_component_page);
+        ImageButton profilePageImageButton = findViewById(R.id.profile_image_button_for_module_manager_in_modify_component_page);
         profilePageImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +55,10 @@ public class AddComponent extends AppCompatActivity {
                 startActivity(intentProfilePage);
             }
         });
+
+        // We modify the EditText hint with the current name of the component
+        EditText editTextComponentName = findViewById(R.id.component_name_in_modify_component_page);
+        editTextComponentName.setHint(ModuleManagerActivity.COMPONENT_NAME);
 
         // We insert the items in the Spinner
         ArrayList<String> componentManagersName = new ArrayList<>();
@@ -72,7 +74,8 @@ public class AddComponent extends AppCompatActivity {
             }
         }
 
-        Spinner spinner = findViewById(R.id.add_component_manager_spinner);
+        // We display all the Tutor names in the Spinner
+        Spinner spinner = findViewById(R.id.modify_component_manager_spinner);
         ArrayAdapter<String> adapterSpinnerItems = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, componentManagersName);
         adapterSpinnerItems.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapterSpinnerItems);
@@ -89,12 +92,24 @@ public class AddComponent extends AppCompatActivity {
         });
 
         // We insert the data written by the user in the Database
-        Button addComponentToDatabaseButton = findViewById(R.id.add_component_to_database_button);
+        Button addComponentToDatabaseButton = findViewById(R.id.modify_component_to_database_button);
         addComponentToDatabaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editTextComponentName = findViewById(R.id.component_name_in_add_component_page);
-                String name = editTextComponentName.getText().toString();
+                String name;
+                if (editTextComponentName.getText().toString().isEmpty()) {
+                    name = ModuleManagerActivity.COMPONENT_NAME;
+                } else {
+                    name = editTextComponentName.getText().toString();
+                }
+
+                ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+                int componentId = 0;
+                for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+                    if (Objects.equals(allComponentsInDB.get(componentIndex).getName(), ModuleManagerActivity.COMPONENT_NAME)) {
+                        componentId = allComponentsInDB.get(componentIndex).getId();
+                    }
+                }
                 int adminId = 0;
                 if (!Objects.equals(chosenComponentManagerName, "None")) {
                     for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex++) {
@@ -108,29 +123,14 @@ public class AddComponent extends AppCompatActivity {
                             chosenComponentManagerId = allComponentManagersInDB.get(componentManagerIndex).getId();
                         }
                     }
-                    databaseManager.insertComponentWithComponentManager(name, chosenComponentManagerId);
+                    databaseManager.updateComponentWithComponentManager(componentId, name, chosenComponentManagerId);
                 } else {
-                    databaseManager.insertComponentWithoutComponentManager(name);
-                }
-
-                // We recover the id of the Component just added in the Database
-                ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
-                int componentId = 0;
-                for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
-                    if (Objects.equals(allComponentsInDB.get(componentIndex).getName(), name)) {
-                        componentId = allComponentsInDB.get(componentIndex).getId();
-                    }
-                }
-
-                // We add the ComponentScore for all Students
-                ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
-                for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
-                    databaseManager.insertComponentScore(componentId, allStudentsInDB.get(studentIndex).getId());
+                    databaseManager.updateComponentWithoutComponentManager(componentId, name);
                 }
 
                 // We go back to the Components list
-                Intent intentComponentAdded = new Intent(getApplicationContext(), ModuleManagerActivity.class);
-                startActivity(intentComponentAdded);
+                Intent intentComponentModified = new Intent(getApplicationContext(), ModuleManagerActivity.class);
+                startActivity(intentComponentModified);
             }
         });
     }

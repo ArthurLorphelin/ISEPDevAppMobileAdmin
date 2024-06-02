@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AllGroupsPage"
-    android:orientation="vertical"
+    tools:context=".activity.GroupDetailsForComponentManager"
     android:background="@color/white">
 
     <RelativeLayout
@@ -15,89 +14,134 @@
         android:orientation="horizontal"
         android:background="#D3D3D3">
 
-        <TextView
+        <ListView
+            android:id="@+id/group_name_for_module_manager_in_teams_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="@string/menu"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textColor="@color/black">
-        </TextView>
+            android:layout_marginStart="120dp">
+        </ListView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_tutor_in_groups_list"
+            android:id="@+id/profile_image_button_for_module_manager_in_teams_list"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
-            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/ic_profile_image"
             android:visibility="visible">
         </ImageButton>
 
+        <ImageButton
+            android:id="@+id/back_to_all_groups_page_from_list_of_teams_in_group"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_previous_page">
+        </ImageButton>
+
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:orientation="vertical"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp">
-
-            <TextView
-                android:id="@+id/group_name_in_tutor_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Group Name"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" - "
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
-
-            <TextView
-                android:id="@+id/component_name_in_tutor_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Component Name"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
-
-        </LinearLayout>
+        android:background="@color/white"
+        android:layout_marginStart="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="List of all Teams"
+            android:text="Information : "
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Group Tutor : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/group_tutor_name_in_group_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/client_name_in_group_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/modify_group_details_for_module_manager"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Modify"
+            android:textSize="20sp"
+            app:backgroundTint="#8B0000"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white">
+
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="List of Teams in Group"
             android:textColor="@color/black"
             android:background="@color/white"
             android:gravity="center"
             android:textSize="20sp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold">
         </TextView>
 
         <EditText
-            android:id="@+id/search_bar_teams_for_tutor"
+            android:id="@+id/search_bar_team_in_selected_group_for_module_manager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="name"
@@ -110,12 +154,11 @@
         </EditText>
 
         <ListView
-            android:id="@+id/list_of_teams_for_tutor_list_view"
+            android:id="@+id/list_of_teams_in_selected_group_for_module_manager_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:cacheColorHint="@color/black"
-            android:layout_marginStart="15dp">
+            android:cacheColorHint="@color/black">
         </ListView>
 
     </LinearLayout>

@@ -13,6 +13,69 @@
         android:theme="@style/Theme.ISEPDevAppMobileAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activity.StudentDetailsForTutor"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TeamDetailsForTutor"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LogOut"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyStudent"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AllStudentsPage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyGroup"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SkillScoreDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ComponentScoreDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyTeamObservation"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TeamDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GroupDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AllGroupsPage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DeleteSkill"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifySkill"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddSkill"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SkillDetailsForModuleManager"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DeleteComponent"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyComponent"
+            android:exported="false" />
+        <activity
             android:name=".activity.ComponentDetailsForModuleManager"
             android:exported="false" />
         <activity

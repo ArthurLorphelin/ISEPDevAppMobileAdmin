@@ -5,18 +5,119 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".activity.ComponentManagerActivity">
+    tools:context=".activity.ModuleManagerActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="@string/menu"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_module_manager_in_components_list"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Module Manager"
-        android:textColor="@color/black"
-        android:background="@color/white"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:layout_centerInParent="true">
-    </TextView>
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/go_to_all_groups_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to Groups Page"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#8B0000"
+            android:textColor="@color/white">
+        </Button>
+
+        <Button
+            android:id="@+id/go_to_all_students_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to Students Page"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#8B0000"
+            android:textColor="@color/white">
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/list_of_all_components"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold">
+        </TextView>
+
+        <EditText
+            android:id="@+id/search_bar_components_for_module_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/search"
+            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp">
+        </EditText>
+
+        <ListView
+            android:id="@+id/list_of_components_for_module_manager_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="@color/black">
+        </ListView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_components_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:backgroundTint="#8B0000"
+        android:text="@string/add_button"
+        android:textSize="30sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white">
+    </Button>
 
 </RelativeLayout>

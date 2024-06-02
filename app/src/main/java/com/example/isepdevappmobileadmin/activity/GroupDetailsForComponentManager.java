@@ -73,47 +73,6 @@ public class GroupDetailsForComponentManager extends AppCompatActivity {
         StudentAndComponentScoreAdapter studentAndComponentScoreAdapter = new StudentAndComponentScoreAdapter(this, studentsInSelectedGroup);
         studentAndComponentScoreListView.setAdapter(studentAndComponentScoreAdapter);
 
-        /*
-        // We create in list in which there are only the ComponentScores for this Component
-        ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
-        ArrayList<ComponentScore> componentScoresForThisComponent = new ArrayList<>();
-        for (int componentScoreIndex = 0; componentScoreIndex < allComponentScoresInDB.size(); componentScoreIndex++) {
-            if (allComponentScoresInDB.get(componentScoreIndex).getComponentId() == componentId) {
-                componentScoresForThisComponent.add(allComponentScoresInDB.get(componentScoreIndex));
-            }
-        }
-
-        // We create a list in which is added all Students of the selected Group and the corresponding ComponentScore
-        ArrayList<Student> allStudentsInDB = databaseManager.getAllStudents();
-        ArrayList<String> studentNamesInSelectedGroup = new ArrayList<>();
-        ArrayList<String> componentScoreForStudent = new ArrayList<>();
-
-        // If the student belongs to group selected
-        for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
-            if (allStudentsInDB.get(studentIndex).getGroupId() == groupId) {
-
-                // If it is the componentScore for this student
-                for (int componentScoreIndex = 0; componentScoreIndex < componentScoresForThisComponent.size(); componentScoreIndex++) {
-                    if (componentScoresForThisComponent.get(componentScoreIndex).getStudentId() == allStudentsInDB.get(studentIndex).getId()) {
-                        // We add the Component Score value and the Student name to the corresponding Array List of Strings
-                        componentScoreForStudent.add(String.valueOf(componentScoresForThisComponent.get(componentScoreIndex).getScore()));
-                        studentNamesInSelectedGroup.add(allStudentsInDB.get(studentIndex).getFirstName() + " " + allStudentsInDB.get(studentIndex).getLastName());
-                    }
-                }
-            }
-        }
-
-
-        // We display the corresponding Students in the ListView
-        ListView listViewStudentsInGroup = findViewById(R.id.list_of_students_in_selected_group_for_component_manager_list_view);
-
-
-        ArrayAdapter<String> adapterStudentNamesInGroup = new ArrayAdapter<>(this, R.layout.list_view_multiple_items, R.id.list_view_first_item_text_view, studentNamesInSelectedGroup);
-        ArrayAdapter<String> adapterComponentScoreForStudent = new ArrayAdapter<>(this, R.layout.list_view_multiple_items, R.id.list_view_second_item_text_view, componentScoreForStudent);
-        listViewStudentsInGroup.setAdapter(adapterStudentNamesInGroup);
-        listViewStudentsInGroup.setAdapter(adapterComponentScoreForStudent);
-        */
-
         // We create the activity due to the user clicking on the PreviousPage Image Button
         ImageButton previousPageImageButton = findViewById(R.id.back_to_component_manager_page_from_list_of_students_in_group);
         previousPageImageButton.setOnClickListener(new View.OnClickListener() {
@@ -152,15 +111,6 @@ public class GroupDetailsForComponentManager extends AppCompatActivity {
                 }
                 StudentAndComponentScoreAdapter studentAndComponentScoreAdapterDuringSearch = new StudentAndComponentScoreAdapter(getApplicationContext(), studentsDuringSearch);
                 studentAndComponentScoreListView.setAdapter(studentAndComponentScoreAdapterDuringSearch);
-
-                /*
-                ArrayAdapter<String> adapterStudentNamesDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_multiple_items, R.id.list_view_first_item_text_view, studentNameListDuringSearch);
-                ArrayAdapter<String> adapterComponentScoreForStudentDuringSearch = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_multiple_items, R.id.list_view_second_item_text_view, componentScoreForStudentDuringSearch);
-                listViewStudentsInGroup.setAdapter(adapterStudentNamesDuringSearch);
-                listViewStudentsInGroup.setAdapter(adapterComponentScoreForStudentDuringSearch);
-
-                 */
-
             }
 
             @Override

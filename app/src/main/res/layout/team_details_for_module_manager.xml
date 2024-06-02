@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.GroupDetailsForComponentManager"
+    tools:context=".activity.TeamDetailsForModuleManager"
     android:background="@color/white">
 
     <RelativeLayout
@@ -15,7 +15,7 @@
         android:background="#D3D3D3">
 
         <ListView
-            android:id="@+id/group_name_for_component_manager_in_students_list"
+            android:id="@+id/team_name_for_module_manager_in_students_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
@@ -23,7 +23,7 @@
         </ListView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_component_manager_in_students_list_with_component_scores"
+            android:id="@+id/profile_image_button_for_module_manager_in_students_list_with_team_observations"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -37,7 +37,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_component_manager_page_from_list_of_students_in_group"
+            android:id="@+id/back_to_group_details_page_from_team_details_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -59,17 +59,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/list_of_students_in_the_group"
+            android:text="List of Students in the Team"
             android:textColor="@color/black"
             android:background="@color/white"
             android:gravity="center"
             android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold">
         </TextView>
 
         <EditText
-            android:id="@+id/search_bar_student_in_selected_group_for_component_manager"
+            android:id="@+id/search_bar_student_in_selected_team_for_module_manager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="name"
@@ -81,15 +81,23 @@
             android:layout_marginTop="10dp">
         </EditText>
 
+        <ListView
+            android:id="@+id/list_of_students_in_selected_group_for_component_manager_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="@color/black">
+        </ListView>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/student_name"
+                android:text="Skills"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="40dp"
@@ -99,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/component_score"
+                android:text="Team Observations"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
                 android:textSize="20sp"
@@ -109,12 +117,26 @@
 
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/list_of_students_in_selected_group_for_component_manager_list_view"
+        <EditText
+            android:id="@+id/search_bar_team_observations_in_selected_team_for_module_manager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/search"
+            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp">
+        </EditText>
+
+        <ListView
+            android:id="@+id/list_of_components_and_team_observations_for_module_manager_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:cacheColorHint="@color/black">
+            android:cacheColorHint="@color/black"
+            android:layout_marginBottom="20dp">
         </ListView>
 
     </LinearLayout>

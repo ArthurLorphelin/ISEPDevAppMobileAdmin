@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.StudentDetailsForModuleManager"
+    tools:context=".activity.StudentDetails"
     android:background="@color/white">
 
     <RelativeLayout
@@ -14,18 +13,30 @@
         android:orientation="horizontal"
         android:background="#D3D3D3">
 
-        <TextView
+        <ListView
+            android:id="@+id/student_name_for_module_manager_in_students_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="120dp"
-            android:text="Profile Details"
-            android:textSize="30sp"
-            android:textColor="@color/black">
-        </TextView>
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="120dp">
+        </ListView>
 
         <ImageButton
-            android:id="@+id/back_to_menu_from_profile_page"
+            android:id="@+id/profile_image_button_for_module_manager_in_student_details_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/back_to_all_students_page_from_students_details_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -52,7 +63,7 @@
             android:textSize="30sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="40dp">
         </TextView>
 
         <LinearLayout
@@ -64,16 +75,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First name : "
+                android:text="Student name : "
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/first_name_in_profile_page"
+                android:id="@+id/student_name_in_student_details_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Arthur"
+                android:text="Arthur Lorphelin"
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
@@ -89,16 +100,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last name : "
+                android:text="Student number : "
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/last_name_in_profile_page"
+                android:id="@+id/student_number_in_student_details_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lorphelin"
+                android:text="10448"
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
@@ -114,13 +125,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email : "
+                android:text="Student mail : "
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/email_in_profile_page"
+                android:id="@+id/student_email_in_student_details_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="arlo10448@isep.eleve.fr"
@@ -139,16 +150,41 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password: "
+                android:text="Group name : "
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/password_in_profile_page"
+                android:id="@+id/student_group_in_student_details_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="*******"
+                android:text="Group"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team name : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/student_team_in_student_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team"
                 android:textSize="20sp"
                 android:textColor="@color/black">
             </TextView>
@@ -156,26 +192,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/modify_profile_details_button"
-            android:layout_width="wrap_content"
+            android:id="@+id/modify_student_group_and_team_in_student_details"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Modify Profile"
+            android:text="Modify"
             android:textSize="20sp"
-            android:textColor="@color/white"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            app:backgroundTint="#8B0000">
-        </Button>
-
-        <Button
-            android:id="@+id/log_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:layout_marginTop="85dp"
             app:backgroundTint="#8B0000">
         </Button>
 

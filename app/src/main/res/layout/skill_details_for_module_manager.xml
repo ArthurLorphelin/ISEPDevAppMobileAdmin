@@ -15,7 +15,7 @@
         android:background="#D3D3D3">
 
         <ListView
-            android:id="@+id/component_name_for_module_manager_in_skills_list"
+            android:id="@+id/skill_name_for_module_manager_in_skills_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
@@ -23,7 +23,7 @@
         </ListView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_skills_list_in_component_details"
+            android:id="@+id/profile_image_button_for_module_manager_in_skill_details"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -37,7 +37,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_module_manager_page_from_list_of_skills_in_component"
+            android:id="@+id/back_to_list_of_skills_page_from_skills_details_for_module_manager"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -76,16 +76,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/component_name_title"
+                android:text="Title :"
                 android:textSize="17sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/component_name_text_view_in_component_details"
+                android:id="@+id/skill_title_text_view_in_skill_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/name"
                 android:textSize="17sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp">
@@ -103,13 +103,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/component_manager"
+                android:text="Description :"
                 android:textSize="17sp"
                 android:textColor="@color/black">
             </TextView>
 
             <TextView
-                android:id="@+id/component_manager_text_view_in_component_details"
+                android:id="@+id/skill_description_text_view_in_skill_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
@@ -123,11 +123,38 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Link to view details :"
+                android:textSize="17sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/skill_link_to_view_details_text_view_in_skill_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp">
+            </TextView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="15dp">
 
             <Button
-                android:id="@+id/modify_component_details_for_module_manager"
+                android:id="@+id/modify_skill_details_for_module_manager"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/modify"
@@ -137,7 +164,7 @@
             </Button>
 
             <Button
-                android:id="@+id/delete_component_for_module_manager"
+                android:id="@+id/delete_skill_for_module_manager"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
@@ -148,57 +175,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="80dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/list_of_skills_in_the_component"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold">
-            </TextView>
-
-            <EditText
-                android:id="@+id/search_bar_for_skills_in_component_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/search"
-                android:textColor="@color/black"
-                android:textColorHint="#D3D3D3"
-                android:inputType="textMultiLine"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp">
-            </EditText>
-
-            <ListView
-                android:id="@+id/list_of_skills_in_component_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-            </ListView>
-
-        </LinearLayout>
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/add_skills_button"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:backgroundTint="#8B0000"
-        android:text="@string/add_button"
-        android:textSize="30sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="15dp"
-        android:textColor="@color/white">
-    </Button>
-
 
 </RelativeLayout>

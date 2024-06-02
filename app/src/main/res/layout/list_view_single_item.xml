@@ -12,7 +12,8 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="40dp">
+        android:layout_marginStart="40dp"
+        android:text="Coucou">
     </TextView>
 
 </RelativeLayout>

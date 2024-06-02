@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddComponent"
+    tools:context=".activity.ModifyGroup"
     android:background="@color/white">
 
     <RelativeLayout
@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="@string/add_component"
+            android:text="Modify Group"
             android:textSize="30sp"
             android:gravity="center"
             android:textColor="@color/black">
         </TextView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_add_component_page"
+            android:id="@+id/profile_image_button_for_module_manager_in_modify_group_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -38,7 +38,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_module_manager_page_from_add_component_page"
+            android:id="@+id/back_to_group_details_page_from_modify_group_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -60,21 +60,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Component Information"
+            android:text="Group name : "
             android:textColor="@color/black"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:layout_marginTop="100sp">
+            android:textSize="20sp"
+            android:layout_marginTop="90dp"
+            android:gravity="center">
+        </TextView>
 
+        <TextView
+            android:id="@+id/group_name_in_modify_group_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group client"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group client"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
         </TextView>
 
         <EditText
-            android:id="@+id/component_name_in_add_component_page"
+            android:id="@+id/client_name_in_modify_group_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/component_name"
+            android:hint="Client name"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="#D3D3D3"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -84,7 +105,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_component_manager"
+            android:text="Modify Group Tutor"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="30dp"
@@ -92,7 +113,7 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/add_component_manager_spinner"
+            android:id="@+id/modify_group_tutor_spinner"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
@@ -101,13 +122,13 @@
         </Spinner>
 
         <Button
-            android:id="@+id/add_component_to_database_button"
+            android:id="@+id/modify_group_to_database_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:backgroundTint="#8B0000"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:text="@string/add_component"
+            android:text="Modify Group"
             android:textSize="18sp"
             android:textColor="@color/white">
         </Button>
