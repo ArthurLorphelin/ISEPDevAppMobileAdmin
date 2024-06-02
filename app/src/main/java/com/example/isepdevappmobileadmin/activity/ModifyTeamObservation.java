@@ -22,8 +22,10 @@ import com.example.isepdevappmobileadmin.classes.DBtable.TeamObservation;
 import com.example.isepdevappmobileadmin.classes.DatabaseManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ModifyTeamObservation extends AppCompatActivity {
+    private TeamObservation chosenTeamObservation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,17 @@ public class ModifyTeamObservation extends AppCompatActivity {
         previousPageImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPreviousPage = new Intent(getApplicationContext(), TeamDetailsForModuleManager.class);
-                startActivity(intentPreviousPage);
+                if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Module Manager")) {
+                    Intent intentPreviousPage = new Intent(getApplicationContext(), TeamDetailsForModuleManager.class);
+                    startActivity(intentPreviousPage);
+                } else if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Tutor")) {
+                    Intent intentPreviousPage = new Intent(getApplicationContext(), TeamDetailsForTutor.class);
+                    startActivity(intentPreviousPage);
+                }
+
             }
         });
+
 
         // We set the profile Page Activity
         ImageButton profilePageImageButton = findViewById(R.id.profile_image_button_for_module_manager_in_modify_team_observation_page);
@@ -54,7 +63,12 @@ public class ModifyTeamObservation extends AppCompatActivity {
         // We display the Skill Title
         TextView textViewSkillTitle = findViewById(R.id.skill_title_in_modify_team_observation_page);
         DatabaseManager databaseManager = new DatabaseManager(getApplicationContext());
-        TeamObservation chosenTeamObservation = TeamDetailsForModuleManager.TEAM_OBSERVATION;
+        if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Module Manager")) {
+            chosenTeamObservation = TeamDetailsForModuleManager.TEAM_OBSERVATION;
+        } else if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Tutor")) {
+            chosenTeamObservation = TeamDetailsForTutor.TEAM_OBSERVATION;
+        }
+
         ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
         String skillTitle = "";
         for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
@@ -87,8 +101,13 @@ public class ModifyTeamObservation extends AppCompatActivity {
                 String observation = editTextObservation.getText().toString();
                 databaseManager.updateTeamObservation(chosenTeamObservation.getId(), observation);
 
-                Intent intentObservationModified = new Intent(getApplicationContext(), TeamDetailsForModuleManager.class);
-                startActivity(intentObservationModified);
+                if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Module manager")) {
+                    Intent intentObservationModified = new Intent(getApplicationContext(), TeamDetailsForModuleManager.class);
+                    startActivity(intentObservationModified);
+                } else if (Objects.equals(SignIn.ADMIN_ROLE_NAME, "Tutor")) {
+                    Intent intentObservationModified = new Intent(getApplicationContext(), TeamDetailsForTutor.class);
+                    startActivity(intentObservationModified);
+                }
             }
         });
     }

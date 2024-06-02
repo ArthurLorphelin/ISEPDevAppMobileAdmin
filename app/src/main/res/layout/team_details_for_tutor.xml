@@ -15,7 +15,7 @@
         android:background="#D3D3D3">
 
         <ListView
-            android:id="@+id/team_name_for_module_manager_in_students_list"
+            android:id="@+id/team_name_for_tutor_in_students_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
@@ -23,7 +23,7 @@
         </ListView>
 
         <ImageButton
-            android:id="@+id/profile_image_button_for_module_manager_in_students_list_with_team_observations"
+            android:id="@+id/profile_image_button_for_tutor_in_students_list_with_team_observations"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp"
@@ -37,7 +37,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/back_to_group_details_page_from_team_details_page"
+            android:id="@+id/back_to_tutor_menu_from_team_details_page"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -69,7 +69,7 @@
         </TextView>
 
         <EditText
-            android:id="@+id/search_bar_student_in_selected_team_for_module_manager"
+            android:id="@+id/search_bar_student_in_selected_team_for_tutor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="name"
@@ -82,7 +82,7 @@
         </EditText>
 
         <ListView
-            android:id="@+id/list_of_students_in_selected_group_for_component_manager_list_view"
+            android:id="@+id/list_of_students_in_selected_group_for_tutor_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -118,7 +118,7 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/search_bar_team_observations_in_selected_team_for_module_manager"
+            android:id="@+id/search_bar_team_observations_in_selected_team_for_tutor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="name"
@@ -131,7 +131,7 @@
         </EditText>
 
         <ListView
-            android:id="@+id/list_of_components_and_team_observations_for_module_manager_list_view"
+            android:id="@+id/list_of_components_and_team_observations_for_tutor_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

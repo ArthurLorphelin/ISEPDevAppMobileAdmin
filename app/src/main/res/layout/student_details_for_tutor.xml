@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StudentDetailsForTutor"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <ListView
+            android:id="@+id/student_name_for_module_manager_in_students_scores_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="120dp">
+        </ListView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_for_module_manager_in_student_scores_list_with_skill_observations"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/back_to_team_details_page_from_students_details_page"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_previous_page">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginStart="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Information : "
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student name : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/student_name_in_student_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arthur Lorphelin"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student number : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/student_number_in_student_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10448"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student mail : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/student_email_in_student_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="arlo10448@isep.eleve.fr"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Summary : "
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+        <ListView
+            android:id="@+id/summary_list_view_in_student_details"
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+
+    </LinearLayout>
+
+</RelativeLayout>
